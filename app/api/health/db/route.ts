@@ -1,6 +1,7 @@
-import { prisma } from "@/lib/prisma";
-
 export async function GET() {
-  const now = await prisma.$queryRaw`SELECT now()`;
-  return Response.json({ ok: true, now });
+  return Response.json({
+    ok: true,
+    mode: "prototype-ui",
+    db: "disabled",
+  });
 }

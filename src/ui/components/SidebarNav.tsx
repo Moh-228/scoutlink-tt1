@@ -1,0 +1,51 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+type SidebarNavProps = {
+  role: "student" | "coach";
+};
+
+type NavItem = {
+  label: string;
+  href: string;
+};
+
+export function SidebarNav({ role }: SidebarNavProps) {
+  const pathname = usePathname();
+
+  const items: NavItem[] = [
+    { label: "Inicio", href: "/dashboard" },
+    { label: "Eventos", href: "/dashboard/events" },
+    { label: "Favoritos", href: "/dashboard/favorites" },
+    { label: "Fichas", href: "/dashboard/fichas" },
+    { label: "Notificaciones", href: "/dashboard/notifications" },
+    { label: "Mi perfil", href: "/dashboard/profile" },
+    {
+      label: role === "student" ? "Mis postulaciones" : "Verificaciones",
+      href: "/dashboard/applications",
+    },
+    { label: "Admin", href: "/dashboard/admin" },
+  ];
+
+  return (
+    <nav aria-label="Navegacion principal" className="space-y-1">
+      {items.map((item) => {
+        const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={[
+              "block rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+              active ? "bg-cyan-700 text-white" : "text-slate-700 hover:bg-slate-100",
+            ].join(" ")}
+          >
+            {item.label}
+          </Link>
+        );
+      })}
+    </nav>
+  );
+}
