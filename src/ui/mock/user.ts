@@ -10,10 +10,10 @@ export type MockUser = {
 
 export const mockUser: MockUser = {
   id: "usr-001",
-  name: "Ana Morales",
-  email: "ana.morales@correo.edu",
+  name: "Moises Perez",
+  email: "moises.perez@correo.edu",
   role: "student",
-  university: "Universidad del Norte",
-  sport: "Futbol",
+  university: "ESCOM",
+  sport: "Basquetbol",
   city: "Monterrey",
 };
