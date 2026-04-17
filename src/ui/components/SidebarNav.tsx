@@ -39,7 +39,7 @@ export function SidebarNav({ role }: SidebarNavProps) {
             href={item.href}
             className={[
               "block rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-              active ? "bg-cyan-700 text-white" : "text-slate-700 hover:bg-slate-100",
+              active ? "bg-[#1883FF] text-white" : "text-white hover:bg-white/10",
             ].join(" ")}
           >
             {item.label}

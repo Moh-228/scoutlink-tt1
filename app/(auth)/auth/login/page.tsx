@@ -10,7 +10,7 @@ export default function LoginPage() {
       <Card>
         <CardHeader>
           <CardTitle>Iniciar sesion</CardTitle>
-          <p className="text-sm text-slate-600">Accede a tu panel de reclutamiento deportivo.</p>
+          <p className="text-sm text-white">Accede a tu panel de reclutamiento deportivo.</p>
         </CardHeader>
         <CardContent>
           <form className="space-y-4">
@@ -20,9 +20,9 @@ export default function LoginPage() {
               Entrar
             </Button>
           </form>
-          <p className="mt-4 text-sm text-slate-600">
+          <p className="mt-4 text-sm text-white">
             Aun no tienes cuenta?{" "}
-            <Link href="/auth/register" className="font-semibold text-cyan-700 hover:text-cyan-800">
+            <Link href="/auth/register" className="font-semibold text-[#1883FF] hover:text-[#75C3FF]">
               Registrarme
             </Link>
           </p>

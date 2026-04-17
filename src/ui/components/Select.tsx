@@ -13,7 +13,7 @@ type SelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
 
 export function Select({ id, label, options, className = "", ...props }: SelectProps) {
   return (
-    <label htmlFor={id} className="flex flex-col gap-1.5 text-sm font-medium text-slate-700">
+    <label htmlFor={id} className="flex flex-col gap-1.5 text-sm font-medium text-white">
       {label ? <span>{label}</span> : null}
       <select
         id={id}

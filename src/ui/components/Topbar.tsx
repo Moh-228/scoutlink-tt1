@@ -6,7 +6,7 @@ type TopbarProps = {
 
 export function Topbar({ userName }: TopbarProps) {
   return (
-    <header className="flex flex-col gap-3 border-b border-slate-200 bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <header className="flex flex-col gap-3 border-b border-white/10 bg-[#09090b] px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
       <div className="w-full sm:max-w-sm">
         <Input id="dashboard-search" label="Buscar" placeholder="Eventos, deportes, universidades" />
       </div>
@@ -17,7 +17,7 @@ export function Topbar({ userName }: TopbarProps) {
         >
           {userName.slice(0, 2).toUpperCase()}
         </div>
-        <p className="text-sm font-medium text-slate-700">{userName}</p>
+        <p className="text-sm font-medium text-white">{userName}</p>
       </div>
     </header>
   );

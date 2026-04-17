@@ -31,7 +31,7 @@ export const landingSports = [
     level: "Nivel competitivo nacional",
   },
   {
-    name: "Atletismo",
+    name: "Tocho bandera",
     description: "Evaluacion de marcas y potencial de beca.",
     level: "Pruebas oficiales",
   },

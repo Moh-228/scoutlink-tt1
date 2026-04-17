@@ -10,8 +10,8 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold text-slate-900">Panel principal</h1>
-        <p className="text-slate-600">Resumen rapido de actividad y oportunidades recomendadas.</p>
+        <h1 className="text-2xl font-bold text-white">Panel principal</h1>
+        <p className="text-white">Resumen rapido de actividad y oportunidades recomendadas.</p>
       </header>
 
       <section className="grid gap-4 md:grid-cols-3">
@@ -26,7 +26,7 @@ export default function Dashboard() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-semibold text-slate-900">Eventos recomendados</h2>
+        <h2 className="text-xl font-semibold text-white">Eventos recomendados</h2>
         <div className="grid gap-4 md:grid-cols-2">
           {mockEvents.slice(0, 4).map((event) => (
             <Card key={event.id}>

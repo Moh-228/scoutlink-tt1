@@ -7,9 +7,9 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const variantMap: Record<ButtonVariant, string> = {
-  primary: "bg-cyan-700 text-white hover:bg-cyan-800",
-  secondary: "bg-white text-slate-900 ring-1 ring-slate-300 hover:bg-slate-100",
-  ghost: "bg-transparent text-slate-700 hover:bg-slate-100",
+  primary: "bg-[#1883ff] text-white hover:bg-[#75C3FF]",
+  secondary: "bg-white text-black ring-1 ring-slate-300 hover:bg-slate-100",
+  ghost: "bg-transparent text-black hover:bg-slate-100",
 };
 
 export function buttonClassNames(variant: ButtonVariant = "primary", className = "") {

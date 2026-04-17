@@ -11,7 +11,7 @@ export default function RegisterPage() {
       <Card>
         <CardHeader>
           <CardTitle>Crear cuenta</CardTitle>
-          <p className="text-sm text-slate-600">Registra tu perfil para comenzar a explorar oportunidades.</p>
+          <p className="text-sm text-white">Registra tu perfil para comenzar a explorar oportunidades.</p>
         </CardHeader>
         <CardContent>
           <form className="space-y-4">
@@ -38,9 +38,9 @@ export default function RegisterPage() {
               Crear cuenta
             </Button>
           </form>
-          <p className="mt-4 text-sm text-slate-600">
+          <p className="mt-4 text-sm text-white">
             Ya tienes cuenta?{" "}
-            <Link href="/auth/login" className="font-semibold text-cyan-700 hover:text-cyan-800">
+            <Link href="/auth/login" className="font-semibold text-[#1883FF] hover:text-[#75C3FF]">
               Iniciar sesion
             </Link>
           </p>
