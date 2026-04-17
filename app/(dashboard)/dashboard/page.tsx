@@ -1,10 +1,10 @@
 
 import Link from "next/link";
 
-import { buttonClassNames } from "@/src/ui/components/Button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/ui/components/Card";
-import { mockMetrics } from "@/src/ui/mock/dashboard";
-import { mockEvents } from "@/src/ui/mock/events";
+import { buttonClassNames } from "@/components/Button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/Card";
+import { mockMetrics } from "@/mock/dashboard";
+import { mockEvents } from "@/mock/events";
 
 export default function Dashboard() {
   return (

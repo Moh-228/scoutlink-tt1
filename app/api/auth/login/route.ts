@@ -1,9 +1,55 @@
-export async function POST() {
-	return Response.json(
-		{
-			ok: false,
-			message: "Prototipo UI: autenticacion deshabilitada.",
-		},
-		{ status: 501 },
-	);
+import { compare } from "bcryptjs";
+
+import { createSession } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { loginSchema } from "@/lib/validations";
+
+export async function POST(request: Request) {
+	try {
+		const body = await request.json();
+		const parsed = loginSchema.safeParse(body);
+
+		if (!parsed.success) {
+			return Response.json(
+				{ ok: false, message: "Credenciales invalidas.", errors: parsed.error.flatten().fieldErrors },
+				{ status: 400 },
+			);
+		}
+
+		const { email, password } = parsed.data;
+
+		const user = await prisma.user.findUnique({
+			where: { email },
+			select: { id: true, email: true, role: true, isActive: true, passwordHash: true },
+		});
+
+		if (!user || !user.isActive) {
+			return Response.json(
+				{ ok: false, message: "Correo o contrasena incorrectos." },
+				{ status: 401 },
+			);
+		}
+
+		const isValidPassword = await compare(password, user.passwordHash);
+
+		if (!isValidPassword) {
+			return Response.json(
+				{ ok: false, message: "Correo o contrasena incorrectos." },
+				{ status: 401 },
+			);
+		}
+
+		await createSession({ userId: user.id, email: user.email, role: user.role });
+
+		return Response.json({
+			ok: true,
+			message: "Inicio de sesion exitoso.",
+			data: { id: user.id, email: user.email, role: user.role },
+		});
+	} catch {
+		return Response.json(
+			{ ok: false, message: "No se pudo iniciar sesion." },
+			{ status: 500 },
+		);
+	}
 }

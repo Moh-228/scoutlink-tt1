@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-import { Button } from "@/src/ui/components/Button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/ui/components/Card";
-import { Input } from "@/src/ui/components/Input";
-import { Select } from "@/src/ui/components/Select";
-import { mockEvents } from "@/src/ui/mock/events";
+import { Button } from "@/components/Button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/Card";
+import { Input } from "@/components/Input";
+import { Select } from "@/components/Select";
+import { mockEvents } from "@/mock/events";
 
 export default function EventsPage() {
   return (

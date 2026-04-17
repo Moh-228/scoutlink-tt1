@@ -1,9 +1,9 @@
 
 import Link from "next/link";
 
-import { buttonClassNames } from "@/src/ui/components/Button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/ui/components/Card";
-import { landingHowItWorks, landingSports } from "@/src/ui/mock/dashboard";
+import { buttonClassNames } from "@/components/Button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/Card";
+import { landingHowItWorks, landingSports } from "@/mock/dashboard";
 
 export default function Home() {
   return (

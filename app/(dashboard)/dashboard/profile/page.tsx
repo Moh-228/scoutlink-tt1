@@ -1,8 +1,8 @@
-import { Button } from "@/src/ui/components/Button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/ui/components/Card";
-import { Input } from "@/src/ui/components/Input";
-import { Select } from "@/src/ui/components/Select";
-import { mockUser } from "@/src/ui/mock/user";
+import { Button } from "@/components/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card";
+import { Input } from "@/components/Input";
+import { Select } from "@/components/Select";
+import { mockUser } from "@/mock/user";
 
 export default function ProfilePage() {
   return (

@@ -1,10 +1,54 @@
-import Link from "next/link";
+"use client";
 
-import { Button } from "@/src/ui/components/Button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/ui/components/Card";
-import { Input } from "@/src/ui/components/Input";
+import { FormEvent, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+import { Button } from "@/components/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card";
+import { Input } from "@/components/Input";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError("");
+    setSuccess("");
+    setIsSubmitting(true);
+
+    const formData = new FormData(event.currentTarget);
+    const email = String(formData.get("email") ?? "").trim();
+    const password = String(formData.get("password") ?? "");
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.ok) {
+        setError(result.message ?? "No se pudo iniciar sesion.");
+        return;
+      }
+
+      setSuccess("Inicio de sesion exitoso. Redirigiendo...");
+      await new Promise((resolve) => setTimeout(resolve, 700));
+      router.push("/dashboard");
+      router.refresh();
+    } catch {
+      setError("No se pudo conectar con el servidor.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <main className="mx-auto w-full max-w-lg">
       <Card>
@@ -13,11 +57,21 @@ export default function LoginPage() {
           <p className="text-sm text-white">Accede a tu panel de reclutamiento deportivo.</p>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4">
-            <Input id="login-email" type="email" label="Correo electronico" placeholder="tu@correo.com" required />
-            <Input id="login-password" type="password" label="Contrasena" placeholder="********" required />
-            <Button type="button" className="w-full">
-              Entrar
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <Input id="login-email" name="email" type="email" label="Correo electronico" placeholder="tu@correo.com" required />
+            <Input id="login-password" name="password" type="password" label="Contrasena" placeholder="********" required />
+            {error ? (
+              <p className="rounded-lg border border-red-400/40 bg-red-500/10 px-3 py-2 text-sm text-red-100" role="alert">
+                {error}
+              </p>
+            ) : null}
+            {success ? (
+              <p className="rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-100" role="status">
+                {success}
+              </p>
+            ) : null}
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? "Entrando..." : "Entrar"}
             </Button>
           </form>
           <p className="mt-4 text-sm text-white">

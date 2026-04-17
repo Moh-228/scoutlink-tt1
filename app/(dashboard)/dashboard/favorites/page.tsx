@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-import { Badge } from "@/src/ui/components/Badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/ui/components/Card";
-import { mockFavorites } from "@/src/ui/mock/favorites";
+import { Badge } from "@/components/Badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/Card";
+import { mockFavorites } from "@/mock/favorites";
 
 function sportColor(sport: string) {
   switch (sport) {

@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 
-import { Badge } from "@/src/ui/components/Badge";
-import { Button } from "@/src/ui/components/Button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/ui/components/Card";
-import { mockEvents } from "@/src/ui/mock/events";
+import { Badge } from "@/components/Badge";
+import { Button } from "@/components/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card";
+import { mockEvents } from "@/mock/events";
 
 type EventDetailPageProps = {
   params: Promise<{ id: string }>;

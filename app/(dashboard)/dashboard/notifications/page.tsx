@@ -1,7 +1,7 @@
-import { Badge } from "@/src/ui/components/Badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/ui/components/Card";
-import { Select } from "@/src/ui/components/Select";
-import { mockNotifications } from "@/src/ui/mock/notifications";
+import { Badge } from "@/components/Badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card";
+import { Select } from "@/components/Select";
+import { mockNotifications } from "@/mock/notifications";
 
 const typeLabel = {
   evento: "Evento",

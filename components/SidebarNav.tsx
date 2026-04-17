@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 type SidebarNavProps = {
-  role: "student" | "coach";
+  role: "student" | "coach" | "admin";
 };
 
 type NavItem = {

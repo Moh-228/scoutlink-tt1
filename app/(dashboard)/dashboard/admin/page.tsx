@@ -1,6 +1,6 @@
-import { Badge } from "@/src/ui/components/Badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/ui/components/Card";
-import { mockAdminStats, mockCoachVerifications } from "@/src/ui/mock/admin";
+import { Badge } from "@/components/Badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/Card";
+import { mockAdminStats, mockCoachVerifications } from "@/mock/admin";
 
 export default function AdminPage() {
   return (

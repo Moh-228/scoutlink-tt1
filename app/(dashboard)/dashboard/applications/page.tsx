@@ -1,6 +1,6 @@
-import { Badge } from "@/src/ui/components/Badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/ui/components/Card";
-import { mockApplications } from "@/src/ui/mock/applications";
+import { Badge } from "@/components/Badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card";
+import { mockApplications } from "@/mock/applications";
 
 const statusMap = {
   postulado: { label: "Postulado", variant: "info" as const },

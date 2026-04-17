@@ -1,8 +1,8 @@
 
 import Link from "next/link";
 
-import { buttonClassNames } from "@/src/ui/components/Button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/ui/components/Card";
+import { buttonClassNames } from "@/components/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card";
 
 export default function Auth() {
   return (

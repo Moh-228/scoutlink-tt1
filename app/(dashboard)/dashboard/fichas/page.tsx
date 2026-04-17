@@ -1,8 +1,8 @@
-import { Badge } from "@/src/ui/components/Badge";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/ui/components/Card";
-import { Input } from "@/src/ui/components/Input";
-import { Select } from "@/src/ui/components/Select";
-import { mockPlayerCards } from "@/src/ui/mock/fichas";
+import { Badge } from "@/components/Badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/Card";
+import { Input } from "@/components/Input";
+import { Select } from "@/components/Select";
+import { mockPlayerCards } from "@/mock/fichas";
 
 function sportColor(sport: string) {
   switch (sport) {
