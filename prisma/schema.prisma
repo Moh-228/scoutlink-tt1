@@ -49,16 +49,17 @@ enum ApplicationStatus {
 }
 
 model User {
-  id           String      @id @default(uuid()) @db.Uuid
-  email        String      @unique
-  passwordHash String
-  role         UserRole
-  isActive     Boolean     @default(true)
+  id                  String   @id @default(uuid()) @db.Uuid
+  email               String   @unique
+  passwordHash        String
+  role                UserRole
+  isActive            Boolean  @default(true)
+  onboardingCompleted Boolean  @default(false)
 
   studentProfile StudentProfile?
   coachProfile   CoachProfile?
 
-  coachVerifications CoachVerification[] @relation("CoachVerifications")
+  coachVerifications    CoachVerification[] @relation("CoachVerifications")
   reviewedVerifications CoachVerification[] @relation("AdminReviews")
 
   generalCard      StudentGeneralCard?
@@ -68,6 +69,8 @@ model User {
   applications  EventApplication[]
   favorites     Favorite[]
   notifications Notification[]
+
+  passwordResetTokens PasswordResetToken[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -98,11 +101,14 @@ model CoachProfile {
   userId       String   @id @db.Uuid
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  displayName  String
-  academicUnit String?
-  phone        String?
-  bio          String?
-  photoUrl     String?
+  displayName    String
+  academicUnit   String?
+  phone          String?
+  bio            String?
+  photoUrl       String?
+  sports         Sport[]
+  certifications String?
+  experience     String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -253,4 +259,18 @@ model Notification {
 
   @@index([userId, createdAt])
   @@map("notifications")
+}
+
+model PasswordResetToken {
+  id        String    @id @default(uuid()) @db.Uuid
+  userId    String    @db.Uuid
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  token     String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@map("password_reset_tokens")
 }

@@ -14,6 +14,7 @@ export type SessionPayload = {
 	userId: string;
 	email: string;
 	role: "student" | "coach" | "admin";
+	onboardingCompleted?: boolean;
 };
 
 export async function createSession(payload: SessionPayload) {

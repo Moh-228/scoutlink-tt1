@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
 		const user = await prisma.user.findUnique({
 			where: { email },
-			select: { id: true, email: true, role: true, isActive: true, passwordHash: true },
+			select: { id: true, email: true, role: true, isActive: true, passwordHash: true, onboardingCompleted: true },
 		});
 
 		if (!user || !user.isActive) {
@@ -39,12 +39,12 @@ export async function POST(request: Request) {
 			);
 		}
 
-		await createSession({ userId: user.id, email: user.email, role: user.role });
+		await createSession({ userId: user.id, email: user.email, role: user.role, onboardingCompleted: user.onboardingCompleted });
 
 		return Response.json({
 			ok: true,
 			message: "Inicio de sesion exitoso.",
-			data: { id: user.id, email: user.email, role: user.role },
+			data: { id: user.id, email: user.email, role: user.role, onboardingCompleted: user.onboardingCompleted },
 		});
 	} catch {
 		return Response.json(

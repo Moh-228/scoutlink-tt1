@@ -11,21 +11,24 @@ import { Select } from "@/components/Select";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const [role, setRole] = useState("student");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
-    setSuccess("");
 
     const formData = new FormData(event.currentTarget);
-    const role = String(formData.get("role") ?? "student");
     const fullName = String(formData.get("fullName") ?? "").trim();
     const email = String(formData.get("email") ?? "").trim();
     const password = String(formData.get("password") ?? "");
     const confirmPassword = String(formData.get("confirmPassword") ?? "");
+
+    if (role === "student" && !email.endsWith("@alumno.ipn.mx")) {
+      setError("Los alumnos deben usar su correo institucional @alumno.ipn.mx.");
+      return;
+    }
 
     if (password !== confirmPassword) {
       setError("Las contrasenas no coinciden.");
@@ -44,14 +47,12 @@ export default function RegisterPage() {
       const result = await response.json();
 
       if (!response.ok || !result.ok) {
-        setError(result.message ?? "No se pudo completar el registro.");
+        const fieldErrors = result.errors ? Object.values(result.errors).flat().join(" ") : "";
+        setError(fieldErrors || result.message || "No se pudo completar el registro.");
         return;
       }
 
-      setSuccess("Cuenta creada correctamente. Redirigiendo...");
-      await new Promise((resolve) => setTimeout(resolve, 700));
-      router.push("/dashboard");
-      router.refresh();
+      router.push(result.data.role === "student" ? "/onboarding/student" : "/onboarding/coach");
     } catch {
       setError("No se pudo conectar con el servidor.");
     } finally {
@@ -85,13 +86,22 @@ export default function RegisterPage() {
               label="Rol"
               options={[
                 { label: "Estudiante", value: "student" },
-                { label: "Coach", value: "coach" },
+                { label: "Coach / Entrenador", value: "coach" },
               ]}
-              defaultValue="student"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
             />
             <Input id="register-name" name="fullName" type="text" label="Nombre completo" placeholder="Tu nombre" required />
-            <Input id="register-email" name="email" type="email" label="Correo electronico" placeholder="tu@correo.com" required />
-            <Input id="register-password" name="password" type="password" label="Contrasena" placeholder="********" required />
+            <div className="flex flex-col gap-1.5">
+              <Input id="register-email" name="email" type="email" label="Correo electronico" placeholder="tu@alumno.ipn.mx" required />
+              {role === "student" ? (
+                <p className="text-xs text-cyan-400/80">Los alumnos deben usar su correo institucional @alumno.ipn.mx.</p>
+              ) : null}
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <Input id="register-password" name="password" type="password" label="Contrasena" placeholder="Min. 8 caracteres" required />
+              <p className="text-xs text-white/40">Debe incluir al menos una mayuscula y un simbolo (ej. !, @, #).</p>
+            </div>
             <Input
               id="register-confirm-password"
               name="confirmPassword"
@@ -103,11 +113,6 @@ export default function RegisterPage() {
             {error ? (
               <p className="rounded-lg border border-red-400/40 bg-red-500/10 px-3 py-2 text-sm text-red-100" role="alert">
                 {error}
-              </p>
-            ) : null}
-            {success ? (
-              <p className="rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-100" role="status">
-                {success}
               </p>
             ) : null}
             <Button type="submit" className="w-full" disabled={isSubmitting}>

@@ -2,22 +2,24 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 import { Button } from "@/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card";
 import { Input } from "@/components/Input";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const wasReset = searchParams.get("reset") === "1";
+
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
-    setSuccess("");
     setIsSubmitting(true);
 
     const formData = new FormData(event.currentTarget);
@@ -38,10 +40,12 @@ export default function LoginPage() {
         return;
       }
 
-      setSuccess("Inicio de sesion exitoso. Redirigiendo...");
-      await new Promise((resolve) => setTimeout(resolve, 700));
-      router.push("/dashboard");
-      router.refresh();
+      const { onboardingCompleted, role } = result.data;
+      if (onboardingCompleted === false) {
+        router.push(role === "student" ? "/onboarding/student" : "/onboarding/coach");
+      } else {
+        router.push("/dashboard");
+      }
     } catch {
       setError("No se pudo conectar con el servidor.");
     } finally {
@@ -49,6 +53,35 @@ export default function LoginPage() {
     }
   }
 
+  return (
+    <>
+      {wasReset ? (
+        <p className="mb-4 rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-100" role="status">
+          Contrasena actualizada. Ya puedes iniciar sesion.
+        </p>
+      ) : null}
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <Input id="login-email" name="email" type="email" label="Correo electronico" placeholder="tu@correo.com" required />
+        <div className="flex flex-col gap-1.5">
+          <Input id="login-password" name="password" type="password" label="Contrasena" placeholder="********" required />
+          <Link href="/auth/forgot-password" className="self-end text-xs text-white/50 hover:text-white">
+            Olvide mi contrasena
+          </Link>
+        </div>
+        {error ? (
+          <p className="rounded-lg border border-red-400/40 bg-red-500/10 px-3 py-2 text-sm text-red-100" role="alert">
+            {error}
+          </p>
+        ) : null}
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? "Entrando..." : "Entrar"}
+        </Button>
+      </form>
+    </>
+  );
+}
+
+export default function LoginPage() {
   return (
     <main className="mx-auto w-full max-w-lg">
       <div className="mb-6">
@@ -68,23 +101,9 @@ export default function LoginPage() {
           <p className="text-sm text-white">Accede a tu panel de reclutamiento deportivo.</p>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <Input id="login-email" name="email" type="email" label="Correo electronico" placeholder="tu@correo.com" required />
-            <Input id="login-password" name="password" type="password" label="Contrasena" placeholder="********" required />
-            {error ? (
-              <p className="rounded-lg border border-red-400/40 bg-red-500/10 px-3 py-2 text-sm text-red-100" role="alert">
-                {error}
-              </p>
-            ) : null}
-            {success ? (
-              <p className="rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-100" role="status">
-                {success}
-              </p>
-            ) : null}
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? "Entrando..." : "Entrar"}
-            </Button>
-          </form>
+          <Suspense fallback={<p className="text-sm text-white/60">Cargando...</p>}>
+            <LoginForm />
+          </Suspense>
           <p className="mt-4 text-sm text-white">
             Aun no tienes cuenta?{" "}
             <Link href="/auth/register" className="font-semibold text-[#1883FF] hover:text-[#75C3FF]">

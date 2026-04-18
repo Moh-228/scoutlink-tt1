@@ -36,10 +36,10 @@ export async function POST(request: Request) {
 			select: { id: true, email: true, role: true, createdAt: true },
 		});
 
-		await createSession({ userId: user.id, email: user.email, role: user.role });
+		await createSession({ userId: user.id, email: user.email, role: user.role, onboardingCompleted: false });
 
 		return Response.json(
-			{ ok: true, message: "Usuario registrado correctamente.", data: user },
+			{ ok: true, message: "Usuario registrado correctamente.", data: { ...user, onboardingCompleted: false } },
 			{ status: 201 },
 		);
 	} catch (error) {
