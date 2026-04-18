@@ -61,6 +61,17 @@ export default function RegisterPage() {
 
   return (
     <main className="mx-auto w-full max-w-lg">
+      <div className="mb-6">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-white transition-colors"
+        >
+          <svg aria-hidden="true" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+          Volver al inicio
+        </Link>
+      </div>
       <Card>
         <CardHeader>
           <CardTitle>Crear cuenta</CardTitle>
