@@ -1,0 +1,73 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+}
+
+.card {
+  background-color: #a11212;
+  padding: 30px 25px;
+  border-radius: 15px;
+  width: 260px;
+  text-align: center;
+  color: white;
+}
+
+.title {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  background: #8d1a1a;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+}
+
+.inputGroup input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  padding: 8px;
+}
+
+.inputGroup span {
+  font-size: 16px;
+}
+
+.remember {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 5px;
+}
+
+.button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #f2c4c4;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.link {
+  font-size: 12px;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.link span {
+  text-decoration: underline;
+}
