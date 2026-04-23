@@ -1,17 +1,37 @@
-import { Badge } from "@/components/Badge";
+import { prisma } from "@/lib/prisma";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/Card";
-import { mockAdminStats, mockCoachVerifications } from "@/mock/admin";
+import { VerificationsList } from "./_components/VerificationsList";
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const [userCount, activeEvents, closedEvents, pendingVerifCount, verifications] = await Promise.all([
+    prisma.user.count(),
+    prisma.event.count({ where: { status: "open" } }),
+    prisma.event.count({ where: { status: "closed" } }),
+    prisma.coachVerification.count({ where: { status: "pending" } }),
+    prisma.coachVerification.findMany({
+      orderBy: { createdAt: "asc" },
+      include: {
+        coach: { select: { id: true, email: true, coachProfile: { select: { displayName: true } } } },
+      },
+    }),
+  ]);
+
+  const stats = [
+    { label: "Usuarios registrados", value: userCount.toString() },
+    { label: "Eventos activos", value: activeEvents.toString() },
+    { label: "Eventos cerrados", value: closedEvents.toString() },
+    { label: "Verificaciones pendientes", value: pendingVerifCount.toString() },
+  ];
+
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold text-slate-900">Panel de Administrador</h1>
-        <p className="text-slate-600">Vista visual de metricas, verificaciones y moderacion.</p>
+        <h1 className="text-2xl font-bold">Panel de Administrador</h1>
+        <p className="text-slate-400">Metricas, verificaciones y moderacion.</p>
       </header>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {mockAdminStats.map((item) => (
+        {stats.map((item) => (
           <Card key={item.label}>
             <CardHeader>
               <CardDescription>{item.label}</CardDescription>
@@ -24,18 +44,10 @@ export default function AdminPage() {
       <Card>
         <CardHeader>
           <CardTitle>Solicitudes de verificacion de entrenadores</CardTitle>
-          <CardDescription>Solo vista prototipo, sin acciones reales de backend.</CardDescription>
+          <CardDescription>Aprueba o rechaza la verificacion de coaches por deporte.</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-3">
-          {mockCoachVerifications.map((item) => (
-            <div key={item.id} className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 p-3">
-              <div>
-                <p className="font-semibold text-slate-900">{item.coach}</p>
-                <p className="text-sm text-slate-600">Deporte: {item.sport}</p>
-              </div>
-              <Badge variant="warning">{item.status}</Badge>
-            </div>
-          ))}
+        <CardContent>
+          <VerificationsList verifications={verifications} />
         </CardContent>
       </Card>
     </div>

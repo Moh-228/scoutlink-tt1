@@ -16,8 +16,8 @@ export default async function DashboardLayout({
     redirect("/auth/login");
   }
 
-  // Redirect to onboarding if not yet completed (only when flag is explicitly false)
-  if (session.onboardingCompleted === false) {
+  // Redirect to onboarding if not yet completed (admin skips onboarding)
+  if (session.role !== "admin" && session.onboardingCompleted === false) {
     redirect(session.role === "student" ? "/onboarding/student" : "/onboarding/coach");
   }
 
@@ -40,12 +40,15 @@ export default async function DashboardLayout({
     redirect("/auth/login");
   }
 
-  // Second check against DB in case JWT is stale
-  if (!user.onboardingCompleted) {
+  // Second check against DB in case JWT is stale (admin skips)
+  if (user.role !== "admin" && !user.onboardingCompleted) {
     redirect(user.role === "student" ? "/onboarding/student" : "/onboarding/coach");
   }
 
-  const userName = user.studentProfile?.fullName ?? user.coachProfile?.displayName ?? user.email;
+  const userName =
+    user.role === "admin"
+      ? "Administrador"
+      : (user.studentProfile?.fullName ?? user.coachProfile?.displayName ?? user.email);
 
   const pendingVerifications =
     user.role === "coach"

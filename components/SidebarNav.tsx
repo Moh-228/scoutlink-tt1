@@ -15,19 +15,25 @@ type NavItem = {
 export function SidebarNav({ role }: SidebarNavProps) {
   const pathname = usePathname();
 
-  const items: NavItem[] = [
-    { label: "Inicio", href: "/dashboard" },
-    { label: "Eventos", href: "/dashboard/events" },
-    { label: "Favoritos", href: "/dashboard/favorites" },
-    { label: "Fichas", href: "/dashboard/fichas" },
-    { label: "Notificaciones", href: "/dashboard/notifications" },
-    { label: "Mi perfil", href: "/dashboard/profile" },
-    {
-      label: role === "student" ? "Mis postulaciones" : "Verificaciones",
-      href: "/dashboard/applications",
-    },
-    { label: "Admin", href: "/dashboard/admin" },
-  ];
+  const items: NavItem[] =
+    role === "admin"
+      ? [
+          { label: "Panel Admin", href: "/dashboard/admin" },
+          { label: "Usuarios", href: "/dashboard/admin/usuarios" },
+          { label: "Fichas", href: "/dashboard/admin/fichas" },
+        ]
+      : [
+          { label: "Inicio", href: "/dashboard" },
+          { label: "Eventos", href: "/dashboard/events" },
+          { label: "Favoritos", href: "/dashboard/favorites" },
+          { label: "Fichas", href: "/dashboard/fichas" },
+          { label: "Notificaciones", href: "/dashboard/notifications" },
+          { label: "Mi perfil", href: "/dashboard/profile" },
+          {
+            label: role === "student" ? "Mis postulaciones" : "Verificaciones",
+            href: "/dashboard/applications",
+          },
+        ];
 
   return (
     <nav aria-label="Navegacion principal" className="space-y-1">
