@@ -15,6 +15,43 @@ const LEVEL_OPTIONS = [
   { label: "Avanzado", value: "advanced" },
 ];
 
+const TA_CLASS =
+  "w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm outline-none transition-colors placeholder:text-slate-400 focus:border-cyan-600";
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="border-t border-white/10 pt-4">
+      <h3 className="mb-3 text-sm font-semibold uppercase tracking-widest text-white/50">
+        {children}
+      </h3>
+    </div>
+  );
+}
+
+function TextArea({
+  name,
+  label,
+  placeholder,
+  rows = 2,
+}: {
+  name: string;
+  label: string;
+  placeholder?: string;
+  rows?: number;
+}) {
+  return (
+    <label className="flex flex-col gap-1.5 text-sm font-medium text-white">
+      <span>{label}</span>
+      <textarea
+        name={name}
+        rows={rows}
+        placeholder={placeholder}
+        className={TA_CLASS}
+      />
+    </label>
+  );
+}
+
 async function completeOnboarding() {
   await fetch("/api/onboarding/complete", { method: "POST" });
 }
@@ -38,6 +75,19 @@ export default function StudentCardPage() {
       publicEmail: String(fd.get("publicEmail") ?? ""),
       experienceLevel: String(fd.get("experienceLevel") ?? "") || undefined,
       isPublic: fd.get("isPublic") === "on",
+      medicalInfo: {
+        previousInjuries: String(fd.get("previousInjuries") ?? ""),
+        currentInjury: String(fd.get("currentInjury") ?? ""),
+        surgeries: String(fd.get("surgeries") ?? ""),
+        allergies: String(fd.get("allergies") ?? ""),
+        asthma: fd.get("asthma") === "on",
+        medication: String(fd.get("medication") ?? ""),
+        medicalRestrictions: String(fd.get("medicalRestrictions") ?? ""),
+      },
+      documents: {
+        inscriptionProof: String(fd.get("inscriptionProof") ?? ""),
+        medicalInsurance: String(fd.get("medicalInsurance") ?? ""),
+      },
     };
 
     try {
@@ -49,7 +99,9 @@ export default function StudentCardPage() {
       const result = await res.json();
 
       if (!res.ok || !result.ok) {
-        const fieldErrors = result.errors ? Object.values(result.errors).flat().join(" ") : "";
+        const fieldErrors = result.errors
+          ? Object.values(result.errors).flat().join(" ")
+          : "";
         setError(fieldErrors || result.message || "No se pudo guardar la ficha.");
         return;
       }
@@ -80,25 +132,119 @@ export default function StudentCardPage() {
       </CardHeader>
       <CardContent>
         <form className="space-y-4" onSubmit={handleSubmit}>
+          {/* Fisico */}
           <div className="grid grid-cols-2 gap-4">
-            <Input id="ob-height" name="heightCm" type="number" min={50} max={270} label="Estatura (cm)" placeholder="175" />
-            <Input id="ob-weight" name="weightKg" type="number" min={20} max={400} label="Peso (kg)" placeholder="70" />
+            <Input
+              id="ob-height"
+              name="heightCm"
+              type="number"
+              min={50}
+              max={270}
+              label="Estatura (cm)"
+              placeholder="175"
+            />
+            <Input
+              id="ob-weight"
+              name="weightKg"
+              type="number"
+              min={20}
+              max={400}
+              label="Peso (kg)"
+              placeholder="70"
+            />
           </div>
-          <Input id="ob-phone" name="phone" type="tel" label="Telefono de contacto" placeholder="+52 55..." />
-          <Input id="ob-pub-email" name="publicEmail" type="email" label="Correo publico (opcional)" placeholder="tu@correo.com" />
+          <Input
+            id="ob-phone"
+            name="phone"
+            type="tel"
+            label="Telefono de contacto"
+            placeholder="+52 55..."
+          />
+          <Input
+            id="ob-pub-email"
+            name="publicEmail"
+            type="email"
+            label="Correo publico (opcional)"
+            placeholder="tu@correo.com"
+          />
           <Select
             id="ob-level"
             name="experienceLevel"
             label="Nivel de experiencia"
             options={LEVEL_OPTIONS}
           />
+
+          {/* Salud */}
+          <SectionTitle>Salud / Condicion fisica</SectionTitle>
+          <TextArea
+            name="previousInjuries"
+            label="Lesiones previas"
+            placeholder="Describe lesiones anteriores relevantes..."
+          />
+          <TextArea
+            name="currentInjury"
+            label="Lesion actual"
+            placeholder="Describe si tienes alguna lesion activa..."
+          />
+          <Input
+            id="ob-surgeries"
+            name="surgeries"
+            label="Cirugias"
+            placeholder="Tipo de cirugia y ano..."
+          />
+          <Input
+            id="ob-allergies"
+            name="allergies"
+            label="Alergias"
+            placeholder="Medicamentos, alimentos, etc."
+          />
           <label className="flex cursor-pointer items-center gap-3 text-sm font-medium text-white">
-            <input type="checkbox" name="isPublic" className="h-4 w-4 rounded border-slate-300" />
+            <input type="checkbox" name="asthma" className="h-4 w-4 rounded border-slate-300" />
+            Padece asma
+          </label>
+          <Input
+            id="ob-medication"
+            name="medication"
+            label="Medicacion actual"
+            placeholder="Nombre del medicamento y dosis..."
+          />
+          <TextArea
+            name="medicalRestrictions"
+            label="Restricciones medicas"
+            placeholder="Actividades que no puedes realizar..."
+          />
+
+          {/* Documentacion */}
+          <SectionTitle>Documentacion</SectionTitle>
+          <Input
+            id="ob-inscription"
+            name="inscriptionProof"
+            label="Comprobante de inscripcion (URL o folio)"
+            placeholder="https://... o numero de folio"
+          />
+          <Input
+            id="ob-insurance"
+            name="medicalInsurance"
+            label="Seguro medico (URL o numero de poliza)"
+            placeholder="https://... o numero de poliza"
+          />
+
+          {/* Visibilidad */}
+          <SectionTitle>Visibilidad</SectionTitle>
+          <label className="flex cursor-pointer items-center gap-3 text-sm font-medium text-white">
+            <input
+              type="checkbox"
+              name="isPublic"
+              className="h-4 w-4 rounded border-slate-300"
+            />
             Hacer mi ficha visible para entrenadores
           </label>
 
           {error ? (
-            <p className="rounded-lg border border-red-400/40 bg-red-500/10 px-3 py-2 text-sm text-red-100" role="alert">
+            <p
+              className="rounded-lg border border-red-400/40 bg-red-500/10 px-3 py-2 text-sm text-red-100"
+              role="alert"
+            >
               {error}
             </p>
           ) : null}
@@ -107,7 +253,12 @@ export default function StudentCardPage() {
             <Button type="submit" className="flex-1" disabled={isSubmitting}>
               {isSubmitting ? "Guardando..." : "Guardar y continuar"}
             </Button>
-            <Button type="button" variant="secondary" onClick={handleSkip} disabled={isSubmitting}>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={handleSkip}
+              disabled={isSubmitting}
+            >
               Saltar
             </Button>
           </div>

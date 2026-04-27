@@ -1,6 +1,7 @@
 import { verifySession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { studentSpecializedCardSchema } from "@/lib/validations";
+import type { Prisma } from "@prisma/client";
 
 export async function POST(request: Request) {
 	const session = await verifySession();
@@ -20,16 +21,18 @@ export async function POST(request: Request) {
 			);
 		}
 
-		const { sport, position, achievements, stats } = parsed.data;
+		const { sport, data } = parsed.data;
+		const jsonData = data as Prisma.InputJsonValue;
 
 		await prisma.studentSpecializedCard.upsert({
 			where: { studentId_sport: { studentId: session.userId, sport } },
-			update: { data: { position, achievements, stats } },
-			create: { studentId: session.userId, sport, data: { position, achievements, stats } },
+			update: { data: jsonData },
+			create: { studentId: session.userId, sport, data: jsonData },
 		});
 
 		return Response.json({ ok: true });
-	} catch {
+	} catch (err) {
+		console.error("[specialized card]", err);
 		return Response.json({ ok: false, message: "No se pudo guardar la ficha." }, { status: 500 });
 	}
 }

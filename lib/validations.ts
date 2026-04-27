@@ -64,13 +64,28 @@ export const studentGeneralCardSchema = z.object({
 	publicEmail: z.string().email("Correo invalido.").optional().or(z.literal("")),
 	experienceLevel: z.enum(["beginner", "intermediate", "advanced"]).optional(),
 	isPublic: z.boolean().default(false),
+	medicalInfo: z
+		.object({
+			previousInjuries: z.string().max(500).optional(),
+			currentInjury: z.string().max(500).optional(),
+			surgeries: z.string().max(300).optional(),
+			allergies: z.string().max(300).optional(),
+			asthma: z.boolean().optional(),
+			medication: z.string().max(300).optional(),
+			medicalRestrictions: z.string().max(500).optional(),
+		})
+		.optional(),
+	documents: z
+		.object({
+			inscriptionProof: z.string().max(500).optional(),
+			medicalInsurance: z.string().max(500).optional(),
+		})
+		.optional(),
 });
 
 export const studentSpecializedCardSchema = z.object({
 	sport: sportEnum,
-	position: z.string().max(100).optional(),
-	achievements: z.string().max(500).optional(),
-	stats: z.string().max(500).optional(),
+	data: z.record(z.string(), z.unknown()).default({}),
 });
 
 export const coachProfileSchema = z.object({
