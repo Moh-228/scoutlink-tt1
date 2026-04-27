@@ -1,80 +1,116 @@
 import { Badge } from "@/components/Badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/Card";
-import { Input } from "@/components/Input";
-import { Select } from "@/components/Select";
-import { mockPlayerCards } from "@/mock/fichas";
+import { verifySession } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 
-function sportColor(sport: string) {
-  switch (sport) {
-    case "Basquetbol":
-      return "bg-orange-100 text-orange-800";
-    case "Futbol Soccer":
-      return "bg-green-100 text-green-800";
-    case "Tocho Bandera":
-      return "bg-red-100 text-red-800";
-    case "Voleibol":
-      return "bg-yellow-100 text-yellow-800";
-    default:
-      return "bg-slate-100 text-slate-800";
-  }
-}
+const SPORT_LABELS: Record<string, string> = {
+  basketball: "Básquetbol",
+  soccer: "Fútbol",
+  flag_football: "Flag Football",
+  volleyball: "Voleibol",
+};
 
-export default function FichasPage() {
+const EXP_LABELS: Record<string, string> = {
+  beginner: "Principiante",
+  intermediate: "Intermedio",
+  advanced: "Avanzado",
+};
+
+type Props = { searchParams: Promise<{ sport?: string }> };
+
+export default async function FichasPage({ searchParams }: Props) {
+  const session = await verifySession();
+  const { sport } = await searchParams;
+
+  const cards = await prisma.studentGeneralCard.findMany({
+    where: {
+      isPublic: true,
+      ...(sport && sport !== "all"
+        ? { student: { studentProfile: { favoriteSport: sport as never } } }
+        : {}),
+    },
+    orderBy: { createdAt: "desc" },
+    include: {
+      student: {
+        select: {
+          id: true,
+          studentProfile: {
+            select: { fullName: true, school: true, gender: true, favoriteSport: true },
+          },
+        },
+      },
+    },
+  });
+
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold text-slate-900">Fichas de deportistas</h1>
-        <p className="text-slate-600">Directorio publico de fichas resumidas con filtros visuales.</p>
+        <h1 className="text-2xl font-bold text-white">Fichas de deportistas</h1>
+        <p className="text-white/60">Directorio de fichas públicas con filtros.</p>
       </header>
 
       <Card>
-        <CardContent className="grid gap-3 md:grid-cols-3">
-          <Input id="ficha-search" label="Buscar por nombre" placeholder="Nombre del jugador" />
-          <Select
-            id="ficha-sport"
-            label="Deporte"
-            defaultValue="all"
-            options={[
-              { label: "Todos", value: "all" },
-              { label: "Basquetbol", value: "basquetbol" },
-              { label: "Futbol Soccer", value: "futbol" },
-              { label: "Tocho Bandera", value: "tocho" },
-              { label: "Voleibol", value: "voleibol" },
-            ]}
-          />
-          <Select
-            id="ficha-school"
-            label="Escuela"
-            defaultValue="all"
-            options={[
-              { label: "Todas", value: "all" },
-              { label: "ESIME", value: "esime" },
-              { label: "ESCOM", value: "escom" },
-              { label: "UPIITA", value: "upiita" },
-              { label: "UPIBI", value: "upibi" },
-            ]}
-          />
+        <CardContent className="mt-0 pt-4">
+          <form method="GET" className="grid gap-3 md:grid-cols-2">
+            <label className="flex flex-col gap-1.5 text-sm font-medium text-white">
+              <span>Deporte</span>
+              <select name="sport" defaultValue={sport ?? "all"} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm outline-none">
+                <option value="all">Todos</option>
+                <option value="basketball">Básquetbol</option>
+                <option value="soccer">Fútbol</option>
+                <option value="flag_football">Flag Football</option>
+                <option value="volleyball">Voleibol</option>
+              </select>
+            </label>
+            <div className="flex items-end">
+              <button type="submit" className="w-full rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/20">
+                Filtrar
+              </button>
+            </div>
+          </form>
         </CardContent>
       </Card>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        {mockPlayerCards.map((player) => (
-          <Card key={player.id}>
-            <CardHeader>
-              <div className="flex items-center justify-between gap-2">
-                <CardTitle>{player.name}</CardTitle>
-                <Badge className={sportColor(player.sport)}>{player.sport}</Badge>
-              </div>
-              <CardDescription>{player.school}</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-2 text-sm text-slate-700">
-              <p>Edad: {player.age}</p>
-              <p>Posicion: {player.position}</p>
-              <p>Nivel: {player.level}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      {cards.length === 0 ? (
+        <p className="text-center text-white/40 py-12">No hay fichas públicas disponibles.</p>
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2">
+          {cards.map((card) => {
+            const profile = card.student.studentProfile;
+            const favSport = profile?.favoriteSport;
+            return (
+              <Card key={card.id}>
+                <CardHeader>
+                  <div className="flex items-center justify-between gap-2">
+                    <CardTitle>{profile?.fullName ?? "Jugador"}</CardTitle>
+                    {favSport && (
+                      <Badge variant="info">{SPORT_LABELS[favSport] ?? favSport}</Badge>
+                    )}
+                  </div>
+                  <CardDescription>{profile?.school ?? "—"}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-1 text-sm text-white/70">
+                  {profile?.gender && <p>Género: {profile.gender}</p>}
+                  {card.experienceLevel && (
+                    <p>Nivel: {EXP_LABELS[card.experienceLevel] ?? card.experienceLevel}</p>
+                  )}
+                  {(card.heightCm || card.weightKg) && (
+                    <p>
+                      {card.heightCm ? `${card.heightCm} cm` : ""}
+                      {card.heightCm && card.weightKg ? " · " : ""}
+                      {card.weightKg ? `${card.weightKg} kg` : ""}
+                    </p>
+                  )}
+                  {/* Only coaches/admins see full contact info */}
+                  {(session?.role === "coach" || session?.role === "admin") && card.phone && (
+                    <p>Tel: {card.phone}</p>
+                  )}
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

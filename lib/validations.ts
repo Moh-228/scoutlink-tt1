@@ -118,3 +118,62 @@ export const coachCardSchema = z.object({
 	categories: z.array(categoryGenderEnum).optional(),
 	achievements: z.string().max(2000).optional(),
 });
+
+// ─── Event creation ───────────────────────────────────────────────────────────
+
+export const createEventSchema = z
+	.object({
+		type: z.enum(["training", "tournament", "recruitment"]),
+		sport: sportEnum,
+		title: z.string().min(3, "Mínimo 3 caracteres.").max(120).trim(),
+		visibility: z.enum(["public", "sport", "unit"]).default("public"),
+		academicUnit: z.string().max(120).optional(),
+		shortDescription: z.string().max(300).optional(),
+		longDescription: z.string().max(3000).optional(),
+		locationText: z.string().max(200).optional(),
+		mapsUrl: z.string().url("URL inválida.").optional().or(z.literal("")),
+		startAt: z.string().optional(),
+		endAt: z.string().optional(),
+		capacity: z.coerce.number().int().min(1).optional().or(z.literal("")),
+		registrationDeadline: z.string().optional(),
+		cost: z.string().max(100).optional(),
+		notes: z.string().max(1000).optional(),
+		autoClose: z.boolean().default(false),
+		// Tournament-specific
+		format: z.enum(["liga", "KO", "grupos"]).optional(),
+		category: z.enum(["V", "F", "Mixto"]).optional(),
+		minTeams: z.coerce.number().int().min(2).optional().or(z.literal("")),
+		maxTeams: z.coerce.number().int().min(2).optional().or(z.literal("")),
+		playersPerTeam: z.coerce.number().int().min(1).optional().or(z.literal("")),
+		substitutes: z.coerce.number().int().min(0).optional().or(z.literal("")),
+		rulesLink: z.string().url("URL inválida.").optional().or(z.literal("")),
+		gameDays: z.array(z.string()).optional(),
+		timeWindow: z.string().max(100).optional(),
+		registrationRequirements: z.string().max(1000).optional(),
+		// Training-specific
+		scheduleDays: z.array(z.string()).optional(),
+		startTime: z.string().optional(),
+		endTime: z.string().optional(),
+		// Recruitment-specific
+		targetTeam: z.string().max(120).optional(),
+		level: z.enum(["open", "beginner", "intermediate", "experienced"]).optional(),
+		sportsCharacteristics: z.record(z.string(), z.unknown()).optional(),
+		whatToBring: z.string().max(500).optional(),
+		evaluationFormat: z.string().max(500).optional(),
+	})
+	.superRefine((data, ctx) => {
+		if (data.type === "tournament" && !data.startAt) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				message: "La fecha de inicio es requerida para torneos.",
+				path: ["startAt"],
+			});
+		}
+		if (data.type === "recruitment" && !data.startAt) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				message: "La fecha de inicio es requerida para reclutamientos.",
+				path: ["startAt"],
+			});
+		}
+	});

@@ -1,53 +1,60 @@
+import { redirect } from "next/navigation";
+
 import { Badge } from "@/components/Badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card";
-import { Select } from "@/components/Select";
-import { mockNotifications } from "@/mock/notifications";
+import { verifySession } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 
-const typeLabel = {
-  evento: "Evento",
-  postulacion: "Postulacion",
-  contacto: "Contacto",
-};
+function fmt(d: Date) {
+  return new Intl.DateTimeFormat("es-MX", { dateStyle: "medium", timeStyle: "short" }).format(
+    new Date(d),
+  );
+}
 
-export default function NotificationsPage() {
+export default async function NotificationsPage() {
+  const session = await verifySession();
+  if (!session) redirect("/auth/login");
+
+  const notifications = await prisma.notification.findMany({
+    where: { userId: session.userId },
+    orderBy: { createdAt: "desc" },
+    take: 50,
+  });
+
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold text-slate-900">Notificaciones</h1>
-        <p className="text-slate-600">Avisos in-app sobre eventos, postulaciones y contacto.</p>
+        <h1 className="text-2xl font-bold text-white">Notificaciones</h1>
+        <p className="text-white/60">Avisos sobre eventos, postulaciones y contacto.</p>
       </header>
 
-      <Card>
-        <CardContent className="max-w-xs">
-          <Select
-            id="notifications-filter"
-            label="Filtrar por"
-            defaultValue="all"
-            options={[
-              { label: "Todas", value: "all" },
-              { label: "Eventos", value: "evento" },
-              { label: "Postulaciones", value: "postulacion" },
-            ]}
-          />
-        </CardContent>
-      </Card>
-
-      <div className="space-y-3">
-        {mockNotifications.map((notification) => (
-          <Card key={notification.id} className={notification.unread ? "ring-cyan-200" : ""}>
-            <CardHeader>
-              <div className="flex items-center justify-between gap-2">
-                <CardTitle className="text-base">{notification.title}</CardTitle>
-                <Badge variant={notification.unread ? "info" : "neutral"}>{typeLabel[notification.type]}</Badge>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-1">
-              <p className="text-sm text-slate-700">{notification.description}</p>
-              <p className="text-xs text-slate-500">{notification.date}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      {notifications.length === 0 ? (
+        <p className="text-center text-white/40 py-12">No tienes notificaciones.</p>
+      ) : (
+        <div className="space-y-3">
+          {notifications.map((n) => {
+            const payload = (n.payload ?? {}) as Record<string, string>;
+            return (
+              <Card key={n.id} className={!n.readAt ? "ring-[#1883ff]/40" : ""}>
+                <CardHeader>
+                  <div className="flex items-center justify-between gap-2">
+                    <CardTitle className="text-base">{payload.title ?? n.type}</CardTitle>
+                    <Badge variant={!n.readAt ? "info" : "neutral"}>
+                      {!n.readAt ? "Nueva" : "Leída"}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-1">
+                  {payload.message && (
+                    <p className="text-sm text-white/70">{payload.message}</p>
+                  )}
+                  <p className="text-xs text-white/40">{fmt(n.createdAt)}</p>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
