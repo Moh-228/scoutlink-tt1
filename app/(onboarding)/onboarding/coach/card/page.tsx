@@ -5,6 +5,19 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card";
+import { Input } from "@/components/Input";
+
+const TA_CLASS =
+  "w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm outline-none transition-colors placeholder:text-slate-400 focus:border-cyan-600";
+
+const GENDERS = ["V", "F", "Mixto"] as const;
+type Gender = (typeof GENDERS)[number];
+
+const GENDER_LABELS: Record<Gender, string> = {
+  V: "Varonil",
+  F: "Femenil",
+  Mixto: "Mixto",
+};
 
 async function completeOnboarding() {
   await fetch("/api/onboarding/complete", { method: "POST" });
@@ -14,6 +27,13 @@ export default function CoachCardPage() {
   const router = useRouter();
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [categories, setCategories] = useState<Gender[]>([]);
+
+  function toggleCategory(gender: Gender) {
+    setCategories((prev) =>
+      prev.includes(gender) ? prev.filter((g) => g !== gender) : [...prev, gender],
+    );
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -24,6 +44,9 @@ export default function CoachCardPage() {
     const body = {
       certifications: String(fd.get("certifications") ?? ""),
       experience: String(fd.get("experience") ?? ""),
+      yearsExperience: String(fd.get("yearsExperience") ?? ""),
+      achievements: String(fd.get("achievements") ?? ""),
+      categories,
     };
 
     try {
@@ -66,28 +89,73 @@ export default function CoachCardPage() {
       </CardHeader>
       <CardContent>
         <form className="space-y-4" onSubmit={handleSubmit}>
+
+          {/* Categorías */}
           <div>
-            <label className="flex flex-col gap-1.5 text-sm font-medium text-white">
-              <span>Certificaciones</span>
-              <textarea
-                name="certifications"
-                rows={3}
-                placeholder="Certificacion FIBA, UEFA, CONADE..."
-                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm outline-none transition-colors placeholder:text-slate-400 focus:border-cyan-600"
-              />
-            </label>
+            <p className="mb-2 text-sm font-medium text-white">Categorias que entrenas</p>
+            <div className="flex gap-3">
+              {GENDERS.map((gender) => (
+                <button
+                  key={gender}
+                  type="button"
+                  onClick={() => toggleCategory(gender)}
+                  className={[
+                    "flex-1 rounded-lg border py-2 text-sm font-medium transition-colors",
+                    categories.includes(gender)
+                      ? "border-cyan-500 bg-cyan-500/20 text-cyan-300"
+                      : "border-white/20 bg-white/5 text-white/60 hover:border-white/40",
+                  ].join(" ")}
+                  aria-pressed={categories.includes(gender)}
+                >
+                  {GENDER_LABELS[gender]}
+                </button>
+              ))}
+            </div>
           </div>
-          <div>
-            <label className="flex flex-col gap-1.5 text-sm font-medium text-white">
-              <span>Experiencia</span>
-              <textarea
-                name="experience"
-                rows={4}
-                placeholder="Describe tu experiencia como entrenador, equipos, logros..."
-                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm outline-none transition-colors placeholder:text-slate-400 focus:border-cyan-600"
-              />
-            </label>
-          </div>
+
+          {/* Años de experiencia */}
+          <Input
+            id="cc-years"
+            name="yearsExperience"
+            type="number"
+            min={0}
+            max={60}
+            label="Anos de experiencia como entrenador"
+            placeholder="5"
+          />
+
+          {/* Certificaciones */}
+          <label className="flex flex-col gap-1.5 text-sm font-medium text-white">
+            <span>Certificaciones</span>
+            <textarea
+              name="certifications"
+              rows={3}
+              placeholder="Certificacion FIBA, UEFA, CONADE..."
+              className={TA_CLASS}
+            />
+          </label>
+
+          {/* Experiencia */}
+          <label className="flex flex-col gap-1.5 text-sm font-medium text-white">
+            <span>Experiencia</span>
+            <textarea
+              name="experience"
+              rows={4}
+              placeholder="Equipos que has dirigido, ligas, temporadas..."
+              className={TA_CLASS}
+            />
+          </label>
+
+          {/* Logros */}
+          <label className="flex flex-col gap-1.5 text-sm font-medium text-white">
+            <span>Logros <span className="font-normal text-white/50">(opcional)</span></span>
+            <textarea
+              name="achievements"
+              rows={4}
+              placeholder={"- Campeon liga municipal 2024\n- MVP entrenador Sub-20\n- Clasificacion regional 2023"}
+              className={TA_CLASS}
+            />
+          </label>
 
           {error ? (
             <p className="rounded-lg border border-red-400/40 bg-red-500/10 px-3 py-2 text-sm text-red-100" role="alert">

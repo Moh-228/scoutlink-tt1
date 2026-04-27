@@ -109,7 +109,12 @@ export const coachDocumentsSchema = z.object({
 		.min(1),
 });
 
+const categoryGenderEnum = z.enum(["V", "F", "Mixto"]);
+
 export const coachCardSchema = z.object({
 	certifications: z.string().max(1000).optional(),
 	experience: z.string().max(1000).optional(),
+	yearsExperience: z.coerce.number().int().min(0).max(60).optional().or(z.literal("")),
+	categories: z.array(categoryGenderEnum).optional(),
+	achievements: z.string().max(2000).optional(),
 });

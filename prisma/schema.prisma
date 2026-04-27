@@ -109,6 +109,9 @@ model CoachProfile {
   sports         Sport[]
   certifications String?
   experience     String?
+  yearsExperience Int?
+  categories     Json?
+  achievements   String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
