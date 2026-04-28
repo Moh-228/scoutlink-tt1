@@ -69,10 +69,7 @@ export const studentGeneralCardSchema = z.object({
 			previousInjuries: z.string().max(500).optional(),
 			currentInjury: z.string().max(500).optional(),
 			surgeries: z.string().max(300).optional(),
-			allergies: z.string().max(300).optional(),
 			asthma: z.boolean().optional(),
-			medication: z.string().max(300).optional(),
-			medicalRestrictions: z.string().max(500).optional(),
 		})
 		.optional(),
 	documents: z

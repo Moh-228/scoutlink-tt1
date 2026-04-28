@@ -3,7 +3,9 @@ import { redirect } from "next/navigation";
 
 import { buttonClassNames } from "@/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card";
+import { Badge } from "@/components/Badge";
 import { verifySession } from "@/lib/auth";
+import { labelField, labelValue } from "@/lib/ficha-labels";
 import { prisma } from "@/lib/prisma";
 
 const SPORT_LABELS: Record<string, string> = {
@@ -13,6 +15,12 @@ const SPORT_LABELS: Record<string, string> = {
   volleyball: "Voleibol",
 };
 
+const EXP_LABELS: Record<string, string> = {
+  beginner: "Principiante",
+  intermediate: "Intermedio",
+  advanced: "Avanzado",
+};
+
 function Row({ label, value }: { label: string; value?: string | number | null }) {
   if (!value && value !== 0) return null;
   return (
@@ -20,6 +28,12 @@ function Row({ label, value }: { label: string; value?: string | number | null }
       <span className="font-medium text-white/50">{label}</span>
       <span className="text-white">{value}</span>
     </div>
+  );
+}
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="mt-3 text-xs font-semibold uppercase tracking-widest text-white/40">{children}</p>
   );
 }
 
@@ -34,7 +48,8 @@ export default async function ProfilePage() {
       role: true,
       studentProfile: true,
       coachProfile: true,
-      generalCard: { select: { heightCm: true, weightKg: true, experienceLevel: true, phone: true, isPublic: true } },
+      generalCard: true,
+      specializedCards: { orderBy: { createdAt: "asc" } },
       coachVerifications: { select: { sport: true, status: true } },
     },
   });
@@ -43,6 +58,9 @@ export default async function ProfilePage() {
 
   const isStudent = user.role === "student";
   const isCoach = user.role === "coach";
+
+  const medicalInfo = user.generalCard?.medicalInfo as Record<string, unknown> | null;
+  const documents = user.generalCard?.documents as Record<string, unknown> | null;
 
   return (
     <div className="space-y-6">
@@ -77,17 +95,87 @@ export default async function ProfilePage() {
         </Card>
       )}
 
-      {isStudent && user.generalCard && (
+      {isStudent && (
         <Card>
           <CardHeader>
-            <CardTitle>Ficha general</CardTitle>
+            <div className="flex items-center justify-between gap-2">
+              <CardTitle>Ficha general</CardTitle>
+              <Link href="/onboarding/student/card" className={buttonClassNames("secondary") + " text-xs px-3 py-1"}>
+                Editar
+              </Link>
+            </div>
           </CardHeader>
           <CardContent className="space-y-2">
-            <Row label="Estatura" value={user.generalCard.heightCm ? `${user.generalCard.heightCm} cm` : undefined} />
-            <Row label="Peso" value={user.generalCard.weightKg ? `${user.generalCard.weightKg} kg` : undefined} />
-            <Row label="Nivel" value={user.generalCard.experienceLevel} />
-            <Row label="Teléfono" value={user.generalCard.phone} />
-            <Row label="Ficha pública" value={user.generalCard.isPublic ? "Sí" : "No"} />
+            {user.generalCard ? (
+              <>
+                <Row label="Estatura" value={user.generalCard.heightCm ? `${user.generalCard.heightCm} cm` : undefined} />
+                <Row label="Peso" value={user.generalCard.weightKg ? `${user.generalCard.weightKg} kg` : undefined} />
+                <Row
+                  label="Nivel"
+                  value={user.generalCard.experienceLevel ? EXP_LABELS[user.generalCard.experienceLevel] ?? user.generalCard.experienceLevel : undefined}
+                />
+                <Row label="Teléfono" value={user.generalCard.phone} />
+                <Row label="Correo público" value={user.generalCard.publicEmail} />
+                <Row label="Ficha pública" value={user.generalCard.isPublic ? "Sí" : "No"} />
+
+                {medicalInfo && (
+                  <>
+                    <SectionTitle>Salud</SectionTitle>
+                    <Row label="Lesiones previas" value={medicalInfo.previousInjuries as string} />
+                    <Row label="Lesión actual" value={medicalInfo.currentInjury as string} />
+                    <Row label="Cirugías" value={medicalInfo.surgeries as string} />
+                    {medicalInfo.asthma && <Row label="Asma" value="Sí" />}
+                  </>
+                )}
+
+                {documents && (
+                  <>
+                    <SectionTitle>Documentación</SectionTitle>
+                    <Row label="Comprobante inscripción" value={documents.inscriptionProof as string} />
+                    <Row label="Seguro médico" value={documents.medicalInsurance as string} />
+                  </>
+                )}
+              </>
+            ) : (
+              <p className="text-sm text-white/40">Aún no has completado tu ficha general.</p>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {isStudent && (
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between gap-2">
+              <CardTitle>Fichas especializadas</CardTitle>
+              <Link href="/onboarding/student/specialized" className={buttonClassNames("secondary") + " text-xs px-3 py-1"}>
+                {user.specializedCards.length > 0 ? "Editar / Agregar" : "Agregar"}
+              </Link>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {user.specializedCards.length === 0 ? (
+              <p className="text-sm text-white/40">Aún no tienes fichas especializadas.</p>
+            ) : (
+              user.specializedCards.map((sc) => {
+                const data = sc.data as Record<string, unknown>;
+                return (
+                  <div key={sc.id} className="rounded-lg border border-white/10 bg-white/5 p-3 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <Badge variant="info">{SPORT_LABELS[sc.sport] ?? sc.sport}</Badge>
+                    </div>
+                    {Object.entries(data)
+                      .filter(([, v]) => v !== "" && v !== false && v !== null && v !== undefined)
+                      .map(([k, v]) => (
+                        <div key={k} className="grid grid-cols-[200px_1fr] gap-2 text-sm">
+                          <span className="font-medium text-white/50">{labelField(k)}</span>
+                          <span className="text-white">{labelValue(v)}</span>
+                        </div>
+                      ))}
+                  </div>
+                );
+              })
+            )}
           </CardContent>
         </Card>
       )}

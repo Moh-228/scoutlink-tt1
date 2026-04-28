@@ -10,6 +10,7 @@ type Verification = {
   id: string;
   sport: string;
   status: string;
+  documentUrl: string | null;
   rejectionReason: string | null;
   coach: { id: string; email: string; coachProfile: { displayName: string } | null };
 };
@@ -56,6 +57,16 @@ export function VerificationsList({ verifications }: { verifications: Verificati
           <div>
             <p className="font-semibold">{v.coach.coachProfile?.displayName ?? v.coach.email}</p>
             <p className="text-sm text-slate-400">Deporte: {sportLabels[v.sport] ?? v.sport}</p>
+            {v.documentUrl && (
+              <a
+                href={v.documentUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-cyan-400 underline hover:text-cyan-300"
+              >
+                Ver documento aval
+              </a>
+            )}
             {v.rejectionReason && (
               <p className="text-xs text-red-400">Motivo rechazo: {v.rejectionReason}</p>
             )}

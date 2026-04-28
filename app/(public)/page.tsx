@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 const HOW_IT_WORKS = [
   {
     title: "1. Crea tu perfil",
-    description: "Completa datos academicos y deportivos para destacar ante coaches.",
+    description: "Completa datos academicos y deportivos para destacar ante entrenadores.",
   },
   {
     title: "2. Descubre eventos",
@@ -20,10 +20,10 @@ const HOW_IT_WORKS = [
 ];
 
 const SPORTS = [
-  { name: "Futbol", description: "Visorias y tryouts para equipos universitarios.", level: "Categorias U17-U21" },
-  { name: "Basquetbol", description: "Eventos de scouting tecnico y fisico.", level: "Nivel competitivo nacional" },
-  { name: "Tocho bandera", description: "Evaluacion de marcas y potencial de beca.", level: "Pruebas oficiales" },
-  { name: "Voleibol", description: "Clinicas y deteccion de talento.", level: "Indoor y playa" },
+  { name: "Futbol", description: "Visorias y tryouts." },
+  { name: "Basquetbol", description: "Eventos de scouting tecnico y fisico." },
+  { name: "Tocho bandera", description: "Visorias y tryouts." },
+  { name: "Voleibol", description: "Eventos de scouting tecnico y fisico." },
 ];
 
 export default function Home() {
@@ -35,7 +35,7 @@ export default function Home() {
           Conecta talento estudiantil con oportunidades reales de reclutamiento universitario.
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-white">
-          Un espacio para que estudiantes deportistas muestren su perfil, postulen a eventos y reciban seguimiento de coaches.
+          Un espacio para que estudiantes deportistas muestren su perfil, postulen a eventos y reciban seguimiento de entrenadores.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link href="/auth/login" className={buttonClassNames("primary", "w-full sm:w-auto")}>
@@ -70,9 +70,6 @@ export default function Home() {
                 <CardTitle>{sport.name}</CardTitle>
                 <CardDescription>{sport.description}</CardDescription>
               </CardHeader>
-              <CardContent>
-                <p className="text-sm text-white">{sport.level}</p>
-              </CardContent>
             </Card>
           ))}
         </div>

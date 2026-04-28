@@ -79,10 +79,7 @@ export default function StudentCardPage() {
         previousInjuries: String(fd.get("previousInjuries") ?? ""),
         currentInjury: String(fd.get("currentInjury") ?? ""),
         surgeries: String(fd.get("surgeries") ?? ""),
-        allergies: String(fd.get("allergies") ?? ""),
         asthma: fd.get("asthma") === "on",
-        medication: String(fd.get("medication") ?? ""),
-        medicalRestrictions: String(fd.get("medicalRestrictions") ?? ""),
       },
       documents: {
         inscriptionProof: String(fd.get("inscriptionProof") ?? ""),
@@ -192,27 +189,12 @@ export default function StudentCardPage() {
             label="Cirugias"
             placeholder="Tipo de cirugia y ano..."
           />
-          <Input
-            id="ob-allergies"
-            name="allergies"
-            label="Alergias"
-            placeholder="Medicamentos, alimentos, etc."
-          />
+
           <label className="flex cursor-pointer items-center gap-3 text-sm font-medium text-white">
             <input type="checkbox" name="asthma" className="h-4 w-4 rounded border-slate-300" />
             Padece asma
           </label>
-          <Input
-            id="ob-medication"
-            name="medication"
-            label="Medicacion actual"
-            placeholder="Nombre del medicamento y dosis..."
-          />
-          <TextArea
-            name="medicalRestrictions"
-            label="Restricciones medicas"
-            placeholder="Actividades que no puedes realizar..."
-          />
+
 
           {/* Documentacion */}
           <SectionTitle>Documentacion</SectionTitle>

@@ -66,11 +66,6 @@ function ConductSection() {
     <>
       <SectionTitle>Conducta y disponibilidad</SectionTitle>
       <TextArea
-        name="attendancePunctuality"
-        label="Asistencia y puntualidad"
-        placeholder="Describe tu historial de asistencia..."
-      />
-      <TextArea
         name="teamworkPressure"
         label="Trabajo en equipo / bajo presion"
         placeholder="Como te desempenas en situaciones de presion..."
@@ -418,7 +413,6 @@ function collectSportData(sport: string, fd: FormData): Record<string, unknown> 
       categories: str("categories"),
       achievements: str("achievements"),
       scouting: str("scouting"),
-      attendancePunctuality: str("attendancePunctuality"),
       teamworkPressure: str("teamworkPressure"),
       availabilityTraining: bool("availabilityTraining"),
       availabilityMatches: bool("availabilityMatches"),
@@ -455,7 +449,6 @@ function collectSportData(sport: string, fd: FormData): Record<string, unknown> 
       offCuts: bool("offCuts"),
       offScreens: bool("offScreens"),
       offSpacing: bool("offSpacing"),
-      attendancePunctuality: str("attendancePunctuality"),
       teamworkPressure: str("teamworkPressure"),
       availabilityTraining: bool("availabilityTraining"),
       availabilityMatches: bool("availabilityMatches"),
@@ -492,7 +485,6 @@ function collectSportData(sport: string, fd: FormData): Record<string, unknown> 
       techBlockHands: bool("techBlockHands"),
       techBlockMovement: bool("techBlockMovement"),
       techCoverageTransition: bool("techCoverageTransition"),
-      attendancePunctuality: str("attendancePunctuality"),
       teamworkPressure: str("teamworkPressure"),
       availabilityTraining: bool("availabilityTraining"),
       availabilityMatches: bool("availabilityMatches"),
@@ -532,7 +524,6 @@ function collectSportData(sport: string, fd: FormData): Record<string, unknown> 
       rbFlagSecurity: bool("rbFlagSecurity"),
       rbPatience: bool("rbPatience"),
       rbExplosiveness: bool("rbExplosiveness"),
-      attendancePunctuality: str("attendancePunctuality"),
       teamworkPressure: str("teamworkPressure"),
       availabilityTraining: bool("availabilityTraining"),
       availabilityMatches: bool("availabilityMatches"),

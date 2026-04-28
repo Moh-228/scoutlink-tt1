@@ -10,7 +10,12 @@ export default async function AdminPage() {
     prisma.coachVerification.count({ where: { status: "pending" } }),
     prisma.coachVerification.findMany({
       orderBy: { createdAt: "asc" },
-      include: {
+      select: {
+        id: true,
+        sport: true,
+        status: true,
+        documentUrl: true,
+        rejectionReason: true,
         coach: { select: { id: true, email: true, coachProfile: { select: { displayName: true } } } },
       },
     }),

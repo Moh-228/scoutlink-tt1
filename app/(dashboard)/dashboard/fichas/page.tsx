@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Badge } from "@/components/Badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/Card";
 import { verifySession } from "@/lib/auth";
@@ -105,6 +106,14 @@ export default async function FichasPage({ searchParams }: Props) {
                   {(session?.role === "coach" || session?.role === "admin") && card.phone && (
                     <p>Tel: {card.phone}</p>
                   )}
+                  <div className="pt-2">
+                    <Link
+                      href={`/dashboard/fichas/${card.id}`}
+                      className="inline-block rounded-lg bg-white/10 px-3 py-1 text-xs font-semibold text-white hover:bg-white/20"
+                    >
+                      Ver detalles →
+                    </Link>
+                  </div>
                 </CardContent>
               </Card>
             );
