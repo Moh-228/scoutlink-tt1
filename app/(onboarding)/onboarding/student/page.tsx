@@ -16,6 +16,19 @@ const SPORT_OPTIONS = [
   { label: "Voleibol", value: "volleyball" },
 ];
 
+const SCHOOL_OPTIONS = [
+  { label: "Selecciona tu unidad académica (opcional)", value: "" },
+  { label: "ESIME", value: "ESIME" },
+  { label: "ESIQIE", value: "ESIQIE" },
+  { label: "ESFM", value: "ESFM" },
+  { label: "ESIA", value: "ESIA" },
+  { label: "ESIT", value: "ESIT" },
+  { label: "ENCB", value: "ENCB" },
+  { label: "ESCOM", value: "ESCOM" },
+  { label: "UPIITA", value: "UPIITA" },
+  { label: "UPIBI", value: "UPIBI" },
+];
+
 export default function StudentOnboardingPage() {
   const router = useRouter();
   const [error, setError] = useState("");
@@ -31,9 +44,9 @@ export default function StudentOnboardingPage() {
     const body = {
       fullName: String(fd.get("fullName") ?? "").trim(),
       birthDate: String(fd.get("birthDate") ?? ""),
-      school: String(fd.get("school") ?? ""),
+      school: String(fd.get("school") ?? "") || undefined,
       semester: fd.get("semester") ? String(fd.get("semester")) : "",
-      gender: String(fd.get("gender") ?? ""),
+      gender: String(fd.get("gender") ?? "") || undefined,
       favoriteSport: String(fd.get("favoriteSport") ?? "") || undefined,
       socialLink: String(fd.get("socialLink") ?? ""),
     };
@@ -75,11 +88,16 @@ export default function StudentOnboardingPage() {
         <form className="space-y-4" onSubmit={handleSubmit}>
           <Input id="ob-name" name="fullName" label="Nombre completo" placeholder="Tu nombre" required />
           <Input id="ob-birth" name="birthDate" type="date" label="Fecha de nacimiento" />
-          <Input id="ob-school" name="school" label="Unidad academica / escuela" placeholder="ESIME, ENCB, UPIICSA..." />
+          <Select
+            id="ob-school"
+            name="school"
+            label="Unidad académica / escuela"
+            options={SCHOOL_OPTIONS}
+          />
           <Input id="ob-semester" name="semester" type="number" min={1} max={12} label="Semestre actual" placeholder="1-12" />
           <div>
             <label className="flex flex-col gap-1.5 text-sm font-medium text-white">
-              <span>Genero</span>
+              <span>Género</span>
               <select
                 name="gender"
                 className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm outline-none transition-colors focus:border-cyan-600"

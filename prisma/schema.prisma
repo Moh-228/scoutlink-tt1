@@ -48,6 +48,30 @@ enum ApplicationStatus {
   rechazado
 }
 
+enum School {
+  ESIME
+  ESIQIE
+  ESFM
+  ESIA
+  ESIT
+  ENCB
+  ESCOM
+  UPIITA
+  UPIBI
+}
+
+enum Gender {
+  male
+  female
+  other
+}
+
+enum ExperienceLevel {
+  beginner
+  intermediate
+  advanced
+}
+
 model User {
   id                  String   @id @default(uuid()) @db.Uuid
   email               String   @unique
@@ -84,9 +108,9 @@ model StudentProfile {
 
   fullName      String
   birthDate     DateTime? @db.Date
-  school        String?
+  school        School?
   semester      Int?
-  gender        String?
+  gender        Gender?
   favoriteSport Sport?
   socialLink    String?
   photoUrl      String?
@@ -102,7 +126,7 @@ model CoachProfile {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   displayName    String
-  academicUnit   String?
+  academicUnit   School?
   phone          String?
   bio            String?
   photoUrl       String?
@@ -152,7 +176,7 @@ model StudentGeneralCard {
   phone       String?
   publicEmail String?
 
-  experienceLevel String?
+  experienceLevel ExperienceLevel?
   availability    Json?
   medicalInfo     Json?
   documents       Json?
@@ -269,11 +293,12 @@ model PasswordResetToken {
   userId    String    @db.Uuid
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  token     String    @unique
+  tokenHash String    @unique
   expiresAt DateTime
   usedAt    DateTime?
 
   createdAt DateTime @default(now())
 
+  @@index([userId])
   @@map("password_reset_tokens")
 }

@@ -15,6 +15,12 @@ const SPORT_LABELS: Record<string, string> = {
   volleyball: "Voleibol",
 };
 
+const GENDER_LABELS: Record<string, string> = {
+  male: "Masculino",
+  female: "Femenino",
+  other: "Otro",
+};
+
 const EXP_LABELS: Record<string, string> = {
   beginner: "Principiante",
   intermediate: "Intermedio",
@@ -86,7 +92,7 @@ export default async function ProfilePage() {
             <Row label="Nombre" value={user.studentProfile.fullName} />
             <Row label="Escuela" value={user.studentProfile.school} />
             <Row label="Semestre" value={user.studentProfile.semester} />
-            <Row label="Género" value={user.studentProfile.gender} />
+            <Row label="Género" value={user.studentProfile.gender ? GENDER_LABELS[user.studentProfile.gender] ?? user.studentProfile.gender : undefined} />
             <Row
               label="Deporte favorito"
               value={user.studentProfile.favoriteSport ? SPORT_LABELS[user.studentProfile.favoriteSport] : undefined}

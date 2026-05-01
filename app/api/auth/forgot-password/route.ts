@@ -1,4 +1,4 @@
-import { randomBytes } from "crypto";
+import { createHash, randomBytes } from "crypto";
 
 import { prisma } from "@/lib/prisma";
 import { forgotPasswordSchema } from "@/lib/validations";
@@ -27,10 +27,11 @@ export async function POST(request: Request) {
 		await prisma.passwordResetToken.deleteMany({ where: { userId: user.id } });
 
 		const token = randomBytes(32).toString("hex");
+		const tokenHash = createHash("sha256").update(token).digest("hex");
 		const expiresAt = new Date(Date.now() + 1000 * 60 * 60); // 1 hour
 
 		await prisma.passwordResetToken.create({
-			data: { userId: user.id, token, expiresAt },
+			data: { userId: user.id, tokenHash, expiresAt },
 		});
 
 		// TODO: Send reset email in production

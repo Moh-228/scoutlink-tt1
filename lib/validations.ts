@@ -47,12 +47,16 @@ export const resetPasswordSchema = z.object({
 
 const sportEnum = z.enum(["basketball", "soccer", "flag_football", "volleyball"]);
 
+const schoolEnum = z.enum(["ESIME", "ESIQIE", "ESFM", "ESIA", "ESIT", "ENCB", "ESCOM", "UPIITA", "UPIBI"]);
+
+const genderEnum = z.enum(["male", "female", "other"]);
+
 export const studentProfileSchema = z.object({
 	fullName: z.string().min(2, "El nombre debe tener al menos 2 caracteres.").max(120).trim(),
 	birthDate: z.string().optional(),
-	school: z.string().max(120).optional(),
+	school: schoolEnum.optional(),
 	semester: z.coerce.number().int().min(1).max(12).optional().or(z.literal("")),
-	gender: z.string().max(50).optional(),
+	gender: genderEnum.optional(),
 	favoriteSport: sportEnum.optional(),
 	socialLink: z.string().url("Debe ser una URL valida.").optional().or(z.literal("")),
 });
@@ -87,7 +91,7 @@ export const studentSpecializedCardSchema = z.object({
 
 export const coachProfileSchema = z.object({
 	displayName: z.string().min(2, "El nombre debe tener al menos 2 caracteres.").max(120).trim(),
-	academicUnit: z.string().max(120).optional(),
+	academicUnit: schoolEnum.optional(),
 	phone: z.string().max(20).optional(),
 	bio: z.string().max(1000).optional(),
 	sports: z

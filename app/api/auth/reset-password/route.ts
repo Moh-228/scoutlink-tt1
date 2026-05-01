@@ -1,3 +1,4 @@
+import { createHash } from "crypto";
 import { hash } from "bcryptjs";
 
 import { prisma } from "@/lib/prisma";
@@ -17,8 +18,10 @@ export async function POST(request: Request) {
 
 		const { token, password } = parsed.data;
 
+		const tokenHash = createHash("sha256").update(token).digest("hex");
+
 		const resetToken = await prisma.passwordResetToken.findUnique({
-			where: { token },
+			where: { tokenHash },
 			include: { user: { select: { id: true, isActive: true } } },
 		});
 

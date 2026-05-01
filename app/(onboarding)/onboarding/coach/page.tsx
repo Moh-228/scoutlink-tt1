@@ -6,12 +6,26 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card";
 import { Input } from "@/components/Input";
+import { Select } from "@/components/Select";
 
 const SPORTS = [
   { label: "Basquetbol", value: "basketball" },
   { label: "Futbol", value: "soccer" },
   { label: "Flag Football", value: "flag_football" },
   { label: "Voleibol", value: "volleyball" },
+];
+
+const SCHOOL_OPTIONS = [
+  { label: "Selecciona tu unidad académica (opcional)", value: "" },
+  { label: "ESIME", value: "ESIME" },
+  { label: "ESIQIE", value: "ESIQIE" },
+  { label: "ESFM", value: "ESFM" },
+  { label: "ESIA", value: "ESIA" },
+  { label: "ESIT", value: "ESIT" },
+  { label: "ENCB", value: "ENCB" },
+  { label: "ESCOM", value: "ESCOM" },
+  { label: "UPIITA", value: "UPIITA" },
+  { label: "UPIBI", value: "UPIBI" },
 ];
 
 export default function CoachOnboardingPage() {
@@ -40,7 +54,7 @@ export default function CoachOnboardingPage() {
     const fd = new FormData(event.currentTarget);
     const body = {
       displayName: String(fd.get("displayName") ?? "").trim(),
-      academicUnit: String(fd.get("academicUnit") ?? ""),
+      academicUnit: String(fd.get("academicUnit") ?? "") || undefined,
       phone: String(fd.get("phone") ?? ""),
       bio: String(fd.get("bio") ?? ""),
       sports: selectedSports,
@@ -83,7 +97,12 @@ export default function CoachOnboardingPage() {
       <CardContent>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <Input id="ob-c-name" name="displayName" label="Nombre para mostrar" placeholder="Prof. Juan Garcia" required />
-          <Input id="ob-c-unit" name="academicUnit" label="Unidad academica" placeholder="ESIME Zacatenco, ENCB..." />
+          <Select
+            id="ob-c-unit"
+            name="academicUnit"
+            label="Unidad académica"
+            options={SCHOOL_OPTIONS}
+          />
           <Input id="ob-c-phone" name="phone" type="tel" label="Telefono de contacto" placeholder="+52 55..." />
           <div>
             <label className="flex flex-col gap-1.5 text-sm font-medium text-white">
