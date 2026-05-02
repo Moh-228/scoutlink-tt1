@@ -18,7 +18,7 @@ export function DeleteButton({ url, label }: DeleteButtonProps) {
   const [error, setError] = useState<string | null>(null);
 
   async function handleDelete() {
-    if (!confirm(`¿Eliminar "${label}"? Esta accion es irreversible.`)) return;
+    if (!confirm(`¿Eliminar "${label}"? Esta acción es irreversible.`)) return;
     setLoading(true);
     setError(null);
     const res = await fetch(url, { method: "DELETE" });
@@ -45,8 +45,8 @@ export function DeleteButton({ url, label }: DeleteButtonProps) {
 
 type SportLabel = { [key: string]: string };
 const sportLabels: SportLabel = {
-  basketball: "Basquetbol",
-  soccer: "Futbol",
+  basketball: "Básquetbol",
+  soccer: "Fútbol",
   flag_football: "Flag Football",
   volleyball: "Voleibol",
 };
@@ -87,7 +87,7 @@ export function GeneralCardRow({ card }: { card: GeneralCard }) {
           {card.heightCm ? `${card.heightCm} cm` : "—"} · {card.weightKg ? `${card.weightKg} kg` : "—"}
         </p>
         <Badge variant={card.isPublic ? "success" : "neutral"} className="mt-1">
-          {card.isPublic ? "Publica" : "Privada"}
+          {card.isPublic ? "Pública" : "Privada"}
         </Badge>
       </div>
       <DeleteButton url={`/api/admin/fichas/student-general/${card.id}`} label={`ficha general de ${name}`} />

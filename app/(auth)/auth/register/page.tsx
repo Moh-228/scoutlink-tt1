@@ -31,7 +31,7 @@ export default function RegisterPage() {
     }
 
     if (password !== confirmPassword) {
-      setError("Las contrasenas no coinciden.");
+      setError("Las contraseñas no coinciden.");
       return;
     }
 
@@ -93,20 +93,20 @@ export default function RegisterPage() {
             />
             <Input id="register-name" name="fullName" type="text" label="Nombre completo" placeholder="Tu nombre" required />
             <div className="flex flex-col gap-1.5">
-              <Input id="register-email" name="email" type="email" label="Correo electronico" placeholder="tu@alumno.ipn.mx" required />
+              <Input id="register-email" name="email" type="email" label="Correo electrónico" placeholder="tu@alumno.ipn.mx" required />
               {role === "student" ? (
                 <p className="text-xs text-cyan-400/80">Los alumnos deben usar su correo institucional @alumno.ipn.mx.</p>
               ) : null}
             </div>
             <div className="flex flex-col gap-1.5">
-              <Input id="register-password" name="password" type="password" label="Contrasena" placeholder="Min. 8 caracteres" required />
-              <p className="text-xs text-white/40">Debe incluir al menos una mayuscula y un simbolo (ej. !, @, #).</p>
+              <Input id="register-password" name="password" type="password" label="Contraseña" placeholder="Min. 8 caracteres" required />
+              <p className="text-xs text-white/40">Debe incluir al menos una mayúscula y un símbolo (ej. !, @, #).</p>
             </div>
             <Input
               id="register-confirm-password"
               name="confirmPassword"
               type="password"
-              label="Confirmar contrasena"
+              label="Confirmar contraseña"
               placeholder="********"
               required
             />
@@ -120,9 +120,9 @@ export default function RegisterPage() {
             </Button>
           </form>
           <p className="mt-4 text-sm text-white">
-            Ya tienes cuenta?{" "}
+            ¿Ya tienes cuenta?{" "}
             <Link href="/auth/login" className="font-semibold text-[#1883FF] hover:text-[#75C3FF]">
-              Iniciar sesion
+              Iniciar sesión
             </Link>
           </p>
         </CardContent>

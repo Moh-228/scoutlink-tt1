@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 			return Response.json(
 				{
 					ok: false,
-					message: "Datos de registro invalidos.",
+					message: "Datos de registro inválidos.",
 					errors: parsed.error.flatten().fieldErrors,
 				},
 				{ status: 400 },
@@ -45,7 +45,7 @@ export async function POST(request: Request) {
 	} catch (error) {
 		if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
 			return Response.json(
-				{ ok: false, message: "El correo ya esta registrado." },
+				{ ok: false, message: "El correo ya está registrado." },
 				{ status: 409 },
 			);
 		}

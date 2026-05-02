@@ -13,15 +13,15 @@ export const mockNotifications: AppNotification[] = [
   {
     id: "nt-001",
     title: "Nuevo torneo publicado",
-    description: "Se publico el Torneo Inter-ES de Basquetbol 2026.",
+    description: "Se publicó el Torneo Inter-ES de Básquetbol 2026.",
     type: "evento",
     date: "2026-04-14",
     unread: true,
   },
   {
     id: "nt-002",
-    title: "Actualizacion de postulacion",
-    description: "Tu estatus paso a preseleccionado en Tryout Regional de Futbol.",
+    title: "Actualización de postulación",
+    description: "Tu estatus pasó a preseleccionado en Tryout Regional de Fútbol.",
     type: "postulacion",
     date: "2026-04-13",
     unread: true,

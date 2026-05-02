@@ -420,7 +420,7 @@ export function EventCreateForm({ organizerName, defaultAcademicUnit }: Props) {
             label="Título del evento"
             value={form.title}
             onChange={(e) => set("title", e.target.value)}
-            placeholder="Ej: 1er Torneo Interescolar de Basquetbol ESIME"
+            placeholder="Ej: 1er Torneo Interescolar de Básquetbol ESIME"
             required
           />
           <Row>

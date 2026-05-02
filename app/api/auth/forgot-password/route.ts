@@ -9,7 +9,7 @@ export async function POST(request: Request) {
 		const parsed = forgotPasswordSchema.safeParse(body);
 
 		if (!parsed.success) {
-			return Response.json({ ok: false, message: "Correo invalido." }, { status: 400 });
+			return Response.json({ ok: false, message: "Correo inválido." }, { status: 400 });
 		}
 
 		const { email } = parsed.data;
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
 		// Always respond success to prevent email enumeration
 		if (!user || !user.isActive) {
-			return Response.json({ ok: true, message: "Si el correo existe, recibiras instrucciones para restablecer tu contrasena." });
+			return Response.json({ ok: true, message: "Si el correo existe, recibirás instrucciones para restablecer tu contraseña." });
 		}
 
 		// Invalidate previous tokens for this user
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
 
 		return Response.json({
 			ok: true,
-			message: "Si el correo existe, recibiras instrucciones para restablecer tu contrasena.",
+			message: "Si el correo existe, recibirás instrucciones para restablecer tu contraseña.",
 			// DEV ONLY — remove when email provider is configured
 			...(process.env.NODE_ENV !== "production" ? { devToken: token } : {}),
 		});

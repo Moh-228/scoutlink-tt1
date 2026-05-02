@@ -9,8 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/Card";
 import { Input } from "@/components/Input";
 
 const SPORT_LABELS: Record<string, string> = {
-  basketball: "Basquetbol",
-  soccer: "Futbol",
+  basketball: "Básquetbol",
+  soccer: "Fútbol",
   flag_football: "Flag Football",
   volleyball: "Voleibol",
 };
@@ -51,7 +51,7 @@ function CoachDocumentsForm() {
 
       if (!res.ok || !result.ok) {
         const fieldErrors = result.errors ? Object.values(result.errors).flat().join(" ") : "";
-        setError(fieldErrors || result.message || "No se pudo guardar los documentos.");
+        setError(fieldErrors || result.message || "No se pudieron guardar los documentos.");
         return;
       }
 
@@ -81,8 +81,8 @@ function CoachDocumentsForm() {
             required
           />
           <p className="mt-1.5 text-xs text-white/40">
-            Sube tu documento a Google Drive u otro servicio y pega el enlace compartible aqui.
-            Este documento NO sera visible para los alumnos.
+            Sube tu documento a Google Drive u otro servicio y pega el enlace compartible aquí.
+            Este documento NO será visible para los alumnos.
           </p>
         </div>
       ))}
@@ -109,7 +109,7 @@ export default function CoachDocumentsPage() {
         </div>
         <CardTitle>Documentos de aval</CardTitle>
         <p className="text-sm text-white/70">
-          Sube un documento por deporte que acredite tu rol como entrenador. Un administrador los revisara para verificarte.
+          Sube un documento por deporte que acredite tu rol como entrenador. Un administrador los revisará para verificarte.
         </p>
       </CardHeader>
       <CardContent>

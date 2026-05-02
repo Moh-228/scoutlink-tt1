@@ -36,7 +36,7 @@ export function SidebarNav({ role }: SidebarNavProps) {
         ];
 
   return (
-    <nav aria-label="Navegacion principal" className="space-y-1">
+    <nav aria-label="Navegación principal" className="space-y-1">
       {items.map((item) => {
         const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
         return (

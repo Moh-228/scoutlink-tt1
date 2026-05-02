@@ -38,7 +38,7 @@ export default async function AdminFichasPage() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold">Gestion de Fichas</h1>
+        <h1 className="text-2xl font-bold">Gestión de Fichas</h1>
         <p className="text-slate-400">Administra fichas de deportistas y fichas de torneos/eventos.</p>
       </header>
 

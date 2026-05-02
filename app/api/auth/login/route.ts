@@ -11,7 +11,7 @@ export async function POST(request: Request) {
 
 		if (!parsed.success) {
 			return Response.json(
-				{ ok: false, message: "Credenciales invalidas.", errors: parsed.error.flatten().fieldErrors },
+				{ ok: false, message: "Credenciales inválidas.", errors: parsed.error.flatten().fieldErrors },
 				{ status: 400 },
 			);
 		}
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 
 		if (!user || !user.isActive) {
 			return Response.json(
-				{ ok: false, message: "Correo o contrasena incorrectos." },
+				{ ok: false, message: "Correo o contraseña incorrectos." },
 				{ status: 401 },
 			);
 		}
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
 
 		if (!isValidPassword) {
 			return Response.json(
-				{ ok: false, message: "Correo o contrasena incorrectos." },
+				{ ok: false, message: "Correo o contraseña incorrectos." },
 				{ status: 401 },
 			);
 		}
@@ -43,12 +43,12 @@ export async function POST(request: Request) {
 
 		return Response.json({
 			ok: true,
-			message: "Inicio de sesion exitoso.",
+			message: "Inicio de sesión exitoso.",
 			data: { id: user.id, email: user.email, role: user.role, onboardingCompleted: user.onboardingCompleted },
 		});
 	} catch {
 		return Response.json(
-			{ ok: false, message: "No se pudo iniciar sesion." },
+			{ ok: false, message: "No se pudo iniciar sesión." },
 			{ status: 500 },
 		);
 	}

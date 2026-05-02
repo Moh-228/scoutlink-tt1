@@ -2,7 +2,7 @@ export type PlayerCard = {
   id: string;
   name: string;
   school: string;
-  sport: "Basquetbol" | "Futbol Soccer" | "Tocho Bandera" | "Voleibol";
+  sport: "Básquetbol" | "Fútbol Soccer" | "Tocho Bandera" | "Voleibol";
   age: number;
   level: "Experimentado" | "No experimentado";
   position: string;
@@ -13,7 +13,7 @@ export const mockPlayerCards: PlayerCard[] = [
     id: "pl-001",
     name: "Diana Herrera",
     school: "ESIME",
-    sport: "Futbol Soccer",
+    sport: "Fútbol Soccer",
     age: 20,
     level: "Experimentado",
     position: "Mediocampista",
@@ -40,7 +40,7 @@ export const mockPlayerCards: PlayerCard[] = [
     id: "pl-004",
     name: "Luis Bernal",
     school: "ESFM",
-    sport: "Basquetbol",
+    sport: "Básquetbol",
     age: 22,
     level: "Experimentado",
     position: "Alero",

@@ -13,12 +13,12 @@ export async function PATCH(request: Request, { params }: Props) {
 	const body = await request.json() as { action: "verify" | "reject"; rejectionReason?: string };
 
 	if (body.action !== "verify" && body.action !== "reject") {
-		return Response.json({ ok: false, message: "Accion invalida." }, { status: 400 });
+		return Response.json({ ok: false, message: "Acción inválida." }, { status: 400 });
 	}
 
 	const verification = await prisma.coachVerification.findUnique({ where: { id } });
 	if (!verification) {
-		return Response.json({ ok: false, message: "Verificacion no encontrada." }, { status: 404 });
+		return Response.json({ ok: false, message: "Verificación no encontrada." }, { status: 404 });
 	}
 
 	const updated = await prisma.coachVerification.update({

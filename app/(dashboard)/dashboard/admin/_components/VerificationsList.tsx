@@ -16,8 +16,8 @@ type Verification = {
 };
 
 const sportLabels: Record<string, string> = {
-  basketball: "Basquetbol",
-  soccer: "Futbol",
+  basketball: "Básquetbol",
+  soccer: "Fútbol",
   flag_football: "Flag Football",
   volleyball: "Voleibol",
 };

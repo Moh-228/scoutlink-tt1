@@ -9,8 +9,8 @@ import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
 
 const SPORTS = [
-  { label: "Basquetbol", value: "basketball" },
-  { label: "Futbol", value: "soccer" },
+  { label: "Básquetbol", value: "basketball" },
+  { label: "Fútbol", value: "soccer" },
   { label: "Flag Football", value: "flag_football" },
   { label: "Voleibol", value: "volleyball" },
 ];
@@ -91,7 +91,7 @@ export default function CoachOnboardingPage() {
         </div>
         <CardTitle>Configura tu perfil de entrenador</CardTitle>
         <p className="text-sm text-white/70">
-          Completa tu informacion profesional para comenzar.
+          Completa tu información profesional para comenzar.
         </p>
       </CardHeader>
       <CardContent>
@@ -103,10 +103,10 @@ export default function CoachOnboardingPage() {
             label="Unidad académica"
             options={SCHOOL_OPTIONS}
           />
-          <Input id="ob-c-phone" name="phone" type="tel" label="Telefono de contacto" placeholder="+52 55..." />
+          <Input id="ob-c-phone" name="phone" type="tel" label="Teléfono de contacto" placeholder="+52 55..." />
           <div>
             <label className="flex flex-col gap-1.5 text-sm font-medium text-white">
-              <span>Biografia / presentacion</span>
+              <span>Biografía / presentación</span>
               <textarea
                 name="bio"
                 rows={3}

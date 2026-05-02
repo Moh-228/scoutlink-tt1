@@ -124,7 +124,7 @@ export default function StudentCardPage() {
         </div>
         <CardTitle>Ficha deportiva general</CardTitle>
         <p className="text-sm text-white/70">
-          Esta informacion ayuda a los entrenadores a encontrarte. Puedes completarla despues.
+          Esta información ayuda a los entrenadores a encontrarte. Puedes completarla después.
         </p>
       </CardHeader>
       <CardContent>
@@ -154,14 +154,14 @@ export default function StudentCardPage() {
             id="ob-phone"
             name="phone"
             type="tel"
-            label="Telefono de contacto"
+            label="Teléfono de contacto"
             placeholder="+52 55..."
           />
           <Input
             id="ob-pub-email"
             name="publicEmail"
             type="email"
-            label="Correo publico (opcional)"
+            label="Correo público (opcional)"
             placeholder="tu@correo.com"
           />
           <Select
@@ -172,7 +172,7 @@ export default function StudentCardPage() {
           />
 
           {/* Salud */}
-          <SectionTitle>Salud / Condicion fisica</SectionTitle>
+          <SectionTitle>Salud / Condición física</SectionTitle>
           <TextArea
             name="previousInjuries"
             label="Lesiones previas"
@@ -180,13 +180,13 @@ export default function StudentCardPage() {
           />
           <TextArea
             name="currentInjury"
-            label="Lesion actual"
+            label="Lesión actual"
             placeholder="Describe si tienes alguna lesion activa..."
           />
           <Input
             id="ob-surgeries"
             name="surgeries"
-            label="Cirugias"
+            label="Cirugías"
             placeholder="Tipo de cirugia y ano..."
           />
 
@@ -196,8 +196,8 @@ export default function StudentCardPage() {
           </label>
 
 
-          {/* Documentacion */}
-          <SectionTitle>Documentacion</SectionTitle>
+          {/* Documentación */}
+          <SectionTitle>Documentación</SectionTitle>
           <Input
             id="ob-inscription"
             name="inscriptionProof"

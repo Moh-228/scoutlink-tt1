@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 const HOW_IT_WORKS = [
   {
     title: "1. Crea tu perfil",
-    description: "Completa datos academicos y deportivos para destacar ante entrenadores.",
+    description: "Completa datos académicos y deportivos para destacar ante entrenadores.",
   },
   {
     title: "2. Descubre eventos",
@@ -20,10 +20,10 @@ const HOW_IT_WORKS = [
 ];
 
 const SPORTS = [
-  { name: "Futbol", description: "Visorias y tryouts." },
-  { name: "Basquetbol", description: "Eventos de scouting tecnico y fisico." },
-  { name: "Tocho bandera", description: "Visorias y tryouts." },
-  { name: "Voleibol", description: "Eventos de scouting tecnico y fisico." },
+  { name: "Fútbol", description: "Visorías y tryouts." },
+  { name: "Básquetbol", description: "Eventos de scouting técnico y físico." },
+  { name: "Tocho bandera", description: "Visorías y tryouts." },
+  { name: "Voleibol", description: "Eventos de scouting técnico y físico." },
 ];
 
 export default function Home() {
@@ -39,7 +39,7 @@ export default function Home() {
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link href="/auth/login" className={buttonClassNames("primary", "w-full sm:w-auto")}>
-            Iniciar sesion
+            Iniciar sesión
           </Link>
           <Link href="/auth/register" className={buttonClassNames("secondary", "w-full sm:w-auto")}>
             Registrarme
@@ -48,7 +48,7 @@ export default function Home() {
       </section>
 
       <section>
-        <h2 className="text-2xl font-semibold tracking-tight text-white">Como funciona</h2>
+        <h2 className="text-2xl font-semibold tracking-tight text-white">Cómo funciona</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {HOW_IT_WORKS.map((step) => (
             <Card key={step.title}>

@@ -57,14 +57,14 @@ export default function ForgotPasswordPage() {
           <svg aria-hidden="true" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
-          Volver al inicio de sesion
+          Volver al inicio de sesión
         </Link>
       </div>
       <Card>
         <CardHeader>
-          <CardTitle>Recuperar contrasena</CardTitle>
+          <CardTitle>Recuperar contraseña</CardTitle>
           <p className="text-sm text-white/70">
-            Ingresa tu correo y te enviaremos instrucciones para restablecer tu contrasena.
+            Ingresa tu correo y te enviaremos instrucciones para restablecer tu contraseña.
           </p>
         </CardHeader>
         <CardContent>
@@ -73,7 +73,7 @@ export default function ForgotPasswordPage() {
               id="fp-email"
               name="email"
               type="email"
-              label="Correo electronico"
+              label="Correo electrónico"
               placeholder="tu@correo.com"
               required
             />
@@ -92,13 +92,13 @@ export default function ForgotPasswordPage() {
 
             {devToken ? (
               <div className="rounded-lg border border-yellow-400/40 bg-yellow-500/10 px-3 py-2 text-xs text-yellow-200">
-                <p className="mb-1 font-semibold">[DEV] Token de recuperacion:</p>
+                <p className="mb-1 font-semibold">[DEV] Token de recuperación:</p>
                 <p className="break-all font-mono">{devToken}</p>
                 <Link
                   href={`/auth/reset-password?token=${devToken}`}
                   className="mt-2 inline-block font-semibold text-yellow-300 underline"
                 >
-                  Ir a restablecer contrasena →
+                  Ir a restablecer contraseña →
                 </Link>
               </div>
             ) : null}

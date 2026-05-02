@@ -11,7 +11,7 @@ export async function POST(request: Request) {
 
 		if (!parsed.success) {
 			return Response.json(
-				{ ok: false, message: "Datos invalidos.", errors: parsed.error.flatten().fieldErrors },
+				{ ok: false, message: "Datos inválidos.", errors: parsed.error.flatten().fieldErrors },
 				{ status: 400 },
 			);
 		}
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 			!resetToken.user.isActive
 		) {
 			return Response.json(
-				{ ok: false, message: "El enlace es invalido o ha expirado. Solicita uno nuevo." },
+				{ ok: false, message: "El enlace es inválido o ha expirado. Solicita uno nuevo." },
 				{ status: 400 },
 			);
 		}
@@ -44,8 +44,8 @@ export async function POST(request: Request) {
 			prisma.passwordResetToken.update({ where: { id: resetToken.id }, data: { usedAt: new Date() } }),
 		]);
 
-		return Response.json({ ok: true, message: "Contrasena actualizada correctamente. Ya puedes iniciar sesion." });
+		return Response.json({ ok: true, message: "Contraseña actualizada correctamente. Ya puedes iniciar sesión." });
 	} catch {
-		return Response.json({ ok: false, message: "No se pudo actualizar la contrasena." }, { status: 500 });
+		return Response.json({ ok: false, message: "No se pudo actualizar la contraseña." }, { status: 500 });
 	}
 }

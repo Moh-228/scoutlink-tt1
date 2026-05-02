@@ -12,35 +12,35 @@ export type MockEvent = {
 export const mockEvents: MockEvent[] = [
   {
     id: "evt-001",
-    title: "Tryout Regional de Futbol Femenino",
-    sport: "Futbol",
+    title: "Tryout Regional de Fútbol Femenino",
+    sport: "Fútbol",
     date: "2026-05-12",
     type: "Presencial",
     location: "Monterrey",
     description:
-      "Jornada de evaluacion para estudiantes atletas interesadas en becas deportivas universitarias de alto rendimiento.",
-    requirements: ["Video destacado", "Promedio minimo 8.0", "Carta de recomendacion"],
+      "Jornada de evaluación para estudiantes atletas interesadas en becas deportivas universitarias de alto rendimiento.",
+    requirements: ["Video destacado", "Promedio mínimo 8.0", "Carta de recomendación"],
   },
   {
     id: "evt-002",
-    title: "Scouting de Basquetbol U18",
-    sport: "Basquetbol",
+    title: "Scouting de Básquetbol U18",
+    sport: "Básquetbol",
     date: "2026-05-25",
     type: "Presencial",
     location: "Guadalajara",
     description:
-      "Entrenadores universitarios observan talento juvenil en sesiones de juego y pruebas fisicas estructuradas.",
+      "Entrenadores universitarios observan talento juvenil en sesiones de juego y pruebas físicas estructuradas.",
     requirements: ["Prueba medica vigente", "Estadisticas de temporada"],
   },
   {
     id: "evt-003",
-    title: "Evaluacion de Atletismo - Velocidad",
+    title: "Evaluación de Atletismo - Velocidad",
     sport: "Atletismo",
     date: "2026-06-03",
     type: "Virtual",
     location: "Online",
     description:
-      "Revision remota de tiempos oficiales y tecnica con panel de coaches de universidades nacionales.",
+      "Revisión remota de tiempos oficiales y técnica con panel de coaches de universidades nacionales.",
     requirements: ["Resultados oficiales", "Video en pista", "Curriculum deportivo"],
   },
   {
@@ -51,7 +51,7 @@ export const mockEvents: MockEvent[] = [
     type: "Presencial",
     location: "Ciudad de Mexico",
     description:
-      "Sesion tecnica para jugadoras y jugadores con pruebas de fundamentos, toma de decision y trabajo en equipo.",
+      "Sesión técnica para jugadoras y jugadores con pruebas de fundamentos, toma de decisión y trabajo en equipo.",
     requirements: ["Constancia escolar", "Disponibilidad de viaje"],
   },
 ];

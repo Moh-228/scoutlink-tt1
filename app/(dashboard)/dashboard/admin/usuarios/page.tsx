@@ -24,7 +24,7 @@ export default async function AdminUsuariosPage() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold">Gestion de Usuarios</h1>
+        <h1 className="text-2xl font-bold">Gestión de Usuarios</h1>
         <p className="text-slate-400">Activa, desactiva o elimina cuentas de deportistas y coaches.</p>
       </header>
 

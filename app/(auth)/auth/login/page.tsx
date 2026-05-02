@@ -36,7 +36,7 @@ function LoginForm() {
       const result = await response.json();
 
       if (!response.ok || !result.ok) {
-        setError(result.message ?? "No se pudo iniciar sesion.");
+        setError(result.message ?? "No se pudo iniciar sesión.");
         return;
       }
 
@@ -57,15 +57,15 @@ function LoginForm() {
     <>
       {wasReset ? (
         <p className="mb-4 rounded-lg border border-emerald-400/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-100" role="status">
-          Contrasena actualizada. Ya puedes iniciar sesion.
+          Contraseña actualizada. Ya puedes iniciar sesión.
         </p>
       ) : null}
       <form className="space-y-4" onSubmit={handleSubmit}>
-        <Input id="login-email" name="email" type="email" label="Correo electronico" placeholder="tu@correo.com" required />
+        <Input id="login-email" name="email" type="email" label="Correo electrónico" placeholder="tu@correo.com" required />
         <div className="flex flex-col gap-1.5">
-          <Input id="login-password" name="password" type="password" label="Contrasena" placeholder="********" required />
+          <Input id="login-password" name="password" type="password" label="Contraseña" placeholder="********" required />
           <Link href="/auth/forgot-password" className="self-end text-xs text-white/50 hover:text-white">
-            Olvide mi contrasena
+            Olvidé mi contraseña
           </Link>
         </div>
         {error ? (
@@ -97,7 +97,7 @@ export default function LoginPage() {
       </div>
       <Card>
         <CardHeader>
-          <CardTitle>Iniciar sesion</CardTitle>
+          <CardTitle>Iniciar sesión</CardTitle>
           <p className="text-sm text-white">Accede a tu panel de reclutamiento deportivo.</p>
         </CardHeader>
         <CardContent>
@@ -105,7 +105,7 @@ export default function LoginPage() {
             <LoginForm />
           </Suspense>
           <p className="mt-4 text-sm text-white">
-            Aun no tienes cuenta?{" "}
+            ¿Aún no tienes cuenta?{" "}
             <Link href="/auth/register" className="font-semibold text-[#1883FF] hover:text-[#75C3FF]">
               Registrarme
             </Link>

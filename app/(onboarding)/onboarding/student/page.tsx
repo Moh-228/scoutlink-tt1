@@ -10,8 +10,8 @@ import { Select } from "@/components/Select";
 
 const SPORT_OPTIONS = [
   { label: "Selecciona un deporte (opcional)", value: "" },
-  { label: "Basquetbol", value: "basketball" },
-  { label: "Futbol", value: "soccer" },
+  { label: "Básquetbol", value: "basketball" },
+  { label: "Fútbol", value: "soccer" },
   { label: "Flag Football", value: "flag_football" },
   { label: "Voleibol", value: "volleyball" },
 ];

@@ -40,7 +40,7 @@ export function UserRow({ user }: { user: User }) {
   }
 
   async function remove() {
-    if (!confirm(`¿Eliminar la cuenta de ${displayName}? Esta accion es irreversible.`)) return;
+    if (!confirm(`¿Eliminar la cuenta de ${displayName}? Esta acción es irreversible.`)) return;
     setLoading("delete");
     setError(null);
     const res = await fetch(`/api/admin/users/${user.id}`, { method: "DELETE" });

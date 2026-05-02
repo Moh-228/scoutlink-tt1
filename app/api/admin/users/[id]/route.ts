@@ -13,7 +13,7 @@ export async function PATCH(request: Request, { params }: Props) {
 
 	// Prevent admin from modifying their own account via this endpoint
 	if (id === session.userId) {
-		return Response.json({ ok: false, message: "No puedes modificar tu propia cuenta desde aqui." }, { status: 400 });
+		return Response.json({ ok: false, message: "No puedes modificar tu propia cuenta desde aquí." }, { status: 400 });
 	}
 
 	const body = await request.json() as Record<string, unknown>;
@@ -24,7 +24,7 @@ export async function PATCH(request: Request, { params }: Props) {
 	if (role === "student" || role === "coach") data.role = role;
 
 	if (Object.keys(data).length === 0) {
-		return Response.json({ ok: false, message: "Sin cambios validos." }, { status: 400 });
+		return Response.json({ ok: false, message: "Sin cambios válidos." }, { status: 400 });
 	}
 
 	const updated = await prisma.user.update({

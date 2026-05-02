@@ -10,8 +10,8 @@ import { Select } from "@/components/Select";
 
 const SPORT_OPTIONS = [
   { label: "Selecciona un deporte", value: "" },
-  { label: "Futbol", value: "soccer" },
-  { label: "Basquetbol", value: "basketball" },
+  { label: "Fútbol", value: "soccer" },
+  { label: "Básquetbol", value: "basketball" },
   { label: "Voleibol", value: "volleyball" },
   { label: "Flag Football (Tocho)", value: "flag_football" },
 ];
@@ -67,7 +67,7 @@ function ConductSection() {
       <SectionTitle>Conducta y disponibilidad</SectionTitle>
       <TextArea
         name="teamworkPressure"
-        label="Trabajo en equipo / bajo presion"
+        label="Trabajo en equipo / bajo presión"
         placeholder="Como te desempenas en situaciones de presion..."
       />
       <div className="space-y-2">
@@ -88,7 +88,7 @@ function ConductSection() {
 // ─── soccer ───────────────────────────────────────────────────────────────────
 
 const SOCCER_POS = [
-  { label: "Posicion", value: "" },
+  { label: "Posición", value: "" },
   { label: "Portero (POR)", value: "POR" },
   { label: "Defensa (DEF)", value: "DEF" },
   { label: "Mediocampista (MED)", value: "MED" },
@@ -105,13 +105,13 @@ const FOOT_OPTIONS = [
 function SoccerForm() {
   return (
     <>
-      <SectionTitle>Perfil tecnico</SectionTitle>
+      <SectionTitle>Perfil técnico</SectionTitle>
       <div className="grid grid-cols-2 gap-3">
-        <Select id="sp-prim-pos" name="primaryPosition" label="Posicion principal" options={SOCCER_POS} />
+        <Select id="sp-prim-pos" name="primaryPosition" label="Posición principal" options={SOCCER_POS} />
         <Input id="sp-prim-sub" name="primarySubrole" label="Subrol prim." placeholder="Ej: Pivote, Extremo..." />
       </div>
       <div className="grid grid-cols-2 gap-3">
-        <Select id="sp-sec-pos" name="secondaryPosition" label="Posicion secundaria" options={SOCCER_POS} />
+        <Select id="sp-sec-pos" name="secondaryPosition" label="Posición secundaria" options={SOCCER_POS} />
         <Input id="sp-sec-sub" name="secondarySubrole" label="Subrol sec." placeholder="Ej: Pivote, Extremo..." />
       </div>
       <Select id="sp-foot" name="dominantFoot" label="Pierna dominante" options={FOOT_OPTIONS} />
@@ -122,17 +122,17 @@ function SoccerForm() {
         <CB name="styleShortPass" label="Pase corto" />
         <CB name="styleLongPass" label="Pase largo" />
         <CB name="style1v1" label="Duelos 1 vs 1" />
-        <CB name="styleAerial" label="Juego aereo" />
+        <CB name="styleAerial" label="Juego aéreo" />
       </div>
       <div className="space-y-2">
         <p className="text-sm font-medium text-white">Rol en el equipo</p>
-        <CB name="roleCaptain" label="Capitan" />
-        <CB name="roleLeader" label="Lider de grupo" />
+        <CB name="roleCaptain" label="Capitán" />
+        <CB name="roleLeader" label="Líder de grupo" />
         <CB name="roleSetPiece" label="Ejecutor de balones parados (ABP)" />
       </div>
 
       <SectionTitle>Experiencia</SectionTitle>
-      <Input id="sp-soc-years" name="yearsExp" type="number" min={0} max={30} label="Anos de experiencia" placeholder="3" />
+      <Input id="sp-soc-years" name="yearsExp" type="number" min={0} max={30} label="Años de experiencia" placeholder="3" />
       <Input id="sp-club" name="currentClubName" label="Club actual" placeholder="Nombre del club..." />
       <div className="grid grid-cols-2 gap-3">
         <Input id="sp-club-city" name="currentClubCity" label="Ciudad" placeholder="Ciudad..." />
@@ -141,12 +141,12 @@ function SoccerForm() {
       <TextArea
         name="previousClubs"
         label="Clubes anteriores"
-        placeholder="Nombre, ciudad, entrenador (uno por linea)..."
+        placeholder="Nombre, ciudad, entrenador (uno por línea)..."
         rows={3}
       />
       <Input id="sp-cats" name="categories" label="Categorias / ligas" placeholder="Sub-20, liga municipal..." />
-      <TextArea name="achievements" label="Logros" placeholder="Titulos, reconocimientos..." />
-      <TextArea name="scouting" label="Visorias" placeholder="Donde y cuando fuiste visto por cazatalentos..." />
+      <TextArea name="achievements" label="Logros" placeholder="Títulos, reconocimientos..." />
+      <TextArea name="scouting" label="Visorías" placeholder="Dónde y cuándo fuiste visto por cazatalentos..." />
     </>
   );
 }
@@ -154,7 +154,7 @@ function SoccerForm() {
 // ─── basketball ───────────────────────────────────────────────────────────────
 
 const BK_POS = [
-  { label: "Posicion", value: "" },
+  { label: "Posición", value: "" },
   { label: "1 – Base (PG)", value: "1" },
   { label: "2 – Escolta (SG)", value: "2" },
   { label: "3 – Alero (SF)", value: "3" },
@@ -172,16 +172,16 @@ const BK_LEVEL = [
   { label: "Nivel", value: "" },
   { label: "Recreativo", value: "recreational" },
   { label: "Competitivo", value: "competitive" },
-  { label: "Seleccion", value: "selection" },
+  { label: "Selección", value: "selection" },
 ];
 
 function BasketballForm() {
   return (
     <>
-      <SectionTitle>Perfil tecnico</SectionTitle>
+      <SectionTitle>Perfil técnico</SectionTitle>
       <div className="grid grid-cols-2 gap-3">
-        <Select id="sp-bk-prim" name="primaryPosition" label="Posicion principal" options={BK_POS} />
-        <Select id="sp-bk-sec" name="secondaryPosition" label="Posicion secundaria" options={BK_POS} />
+        <Select id="sp-bk-prim" name="primaryPosition" label="Posición principal" options={BK_POS} />
+        <Select id="sp-bk-sec" name="secondaryPosition" label="Posición secundaria" options={BK_POS} />
       </div>
       <div className="flex items-end gap-4">
         <div className="flex-1">
@@ -201,24 +201,24 @@ function BasketballForm() {
         <CB name="style3AndD" label="3&D (tirador-defensor)" />
       </div>
 
-      <SectionTitle>Fisico</SectionTitle>
+      <SectionTitle>Físico</SectionTitle>
       <div className="grid grid-cols-2 gap-3">
         <Input id="sp-wingspan" name="wingspan" type="number" min={100} max={280} label="Envergadura (cm)" placeholder="190" />
         <Input id="sp-vjump" name="verticalJump" type="number" min={20} max={120} label="Salto vertical (cm)" placeholder="60" />
       </div>
 
       <SectionTitle>Experiencia</SectionTitle>
-      <Input id="sp-bk-years" name="yearsExp" type="number" min={0} max={30} label="Anos de experiencia" placeholder="3" />
+      <Input id="sp-bk-years" name="yearsExp" type="number" min={0} max={30} label="Años de experiencia" placeholder="3" />
       <Select id="sp-bk-level" name="level" label="Nivel" options={BK_LEVEL} />
-      <TextArea name="teamsLeagues" label="Equipos / ligas" placeholder="Equipo, liga, temporada (uno por linea)..." />
-      <TextArea name="achievements" label="Logros" placeholder="Titulos, reconocimientos..." />
+      <TextArea name="teamsLeagues" label="Equipos / ligas" placeholder="Equipo, liga, temporada (uno por línea)..." />
+      <TextArea name="achievements" label="Logros" placeholder="Títulos, reconocimientos..." />
 
       <SectionTitle>Habilidades ofensivas</SectionTitle>
       <div className="space-y-2">
-        <CB name="offPressureHandling" label="Manejo bajo presion" />
+        <CB name="offPressureHandling" label="Manejo bajo presión" />
         <CB name="offBothHandsDribble" label="Drible con ambas manos" />
-        <CB name="offFinishBothHands" label="Finalizacion con ambas manos" />
-        <CB name="offFinishContact" label="Finalizacion con contacto" />
+        <CB name="offFinishBothHands" label="Finalización con ambas manos" />
+        <CB name="offFinishContact" label="Finalización con contacto" />
         <CB name="offMidRange" label="Tiro de media distancia" />
         <CB name="offTripleCatchShoot" label="Triple C&S (catch & shoot)" />
         <CB name="offTripleDribble" label="Triple desde drible" />
@@ -234,7 +234,7 @@ function BasketballForm() {
 // ─── volleyball ───────────────────────────────────────────────────────────────
 
 const VB_POS = [
-  { label: "Posicion", value: "" },
+  { label: "Posición", value: "" },
   { label: "Colocador/a", value: "setter" },
   { label: "Libero", value: "libero" },
   { label: "Central", value: "middle" },
@@ -246,7 +246,7 @@ const VB_LEVEL = [
   { label: "Nivel", value: "" },
   { label: "Recreativo", value: "recreational" },
   { label: "Competitivo", value: "competitive" },
-  { label: "Seleccion", value: "selection" },
+  { label: "Selección", value: "selection" },
 ];
 
 const HAND_OPTS = [
@@ -258,15 +258,15 @@ const HAND_OPTS = [
 function VolleyballForm() {
   return (
     <>
-      <SectionTitle>Perfil tecnico</SectionTitle>
-      <Select id="sp-vb-pos" name="position" label="Posicion" options={VB_POS} />
+      <SectionTitle>Perfil técnico</SectionTitle>
+      <Select id="sp-vb-pos" name="position" label="Posición" options={VB_POS} />
       <div className="grid grid-cols-2 gap-3">
         <Select id="sp-vb-hand-atk" name="dominantHandAttack" label="Mano dom. (ataque)" options={HAND_OPTS} />
         <Select id="sp-vb-hand-srv" name="dominantHandServe" label="Mano dom. (saque)" options={HAND_OPTS} />
       </div>
-      <Input id="sp-vb-role" name="role" label="Rol en el equipo" placeholder="Titular, suplente, capitan..." />
+      <Input id="sp-vb-role" name="role" label="Rol en el equipo" placeholder="Titular, suplente, capitán..." />
 
-      <SectionTitle>Fisico</SectionTitle>
+      <SectionTitle>Físico</SectionTitle>
       <div className="grid grid-cols-2 gap-3">
         <Input id="sp-vb-wingspan" name="wingspan" type="number" min={100} max={280} label="Envergadura (cm)" placeholder="185" />
         <Input id="sp-vb-jump" name="jump" type="number" min={20} max={120} label="Salto (cm)" placeholder="60" />
@@ -277,19 +277,19 @@ function VolleyballForm() {
       </div>
 
       <SectionTitle>Experiencia</SectionTitle>
-      <Input id="sp-vb-years" name="yearsExp" type="number" min={0} max={30} label="Anos de experiencia" placeholder="3" />
+      <Input id="sp-vb-years" name="yearsExp" type="number" min={0} max={30} label="Años de experiencia" placeholder="3" />
       <Select id="sp-vb-level" name="level" label="Nivel" options={VB_LEVEL} />
-      <TextArea name="teamsLeagues" label="Equipos" placeholder="Equipo, temporada (uno por linea)..." />
+      <TextArea name="teamsLeagues" label="Equipos" placeholder="Equipo, temporada (uno por línea)..." />
       <TextArea name="achievements" label="Torneos y logros" placeholder="Campeonatos, reconocimientos..." />
 
-      <SectionTitle>Tecnica</SectionTitle>
+      <SectionTitle>Técnica</SectionTitle>
       <div className="space-y-2">
-        <CB name="techReception" label="Recepcion" />
+        <CB name="techReception" label="Recepción" />
         <CB name="techDig" label="Defensa (dig)" />
         <CB name="techReadingDefense" label="Lectura defensiva" />
         <CB name="techFloatServe" label="Saque flotado" />
         <CB name="techJumpServe" label="Saque de salto" />
-        <CB name="techSetting" label="Colocacion" />
+        <CB name="techSetting" label="Colocación" />
         <CB name="techLineAttack" label="Ataque en linea" />
         <CB name="techDiagonalAttack" label="Ataque en diagonal" />
         <CB name="techTipAttack" label="Ataque en punta (tip)" />
@@ -297,7 +297,7 @@ function VolleyballForm() {
         <CB name="techBlockReading" label="Bloqueo — lectura" />
         <CB name="techBlockHands" label="Bloqueo — manos" />
         <CB name="techBlockMovement" label="Bloqueo — desplazamiento" />
-        <CB name="techCoverageTransition" label="Coberturas y transicion" />
+        <CB name="techCoverageTransition" label="Coberturas y transición" />
       </div>
     </>
   );
@@ -332,22 +332,22 @@ const THROW_HAND = [
 function FlagFootballForm() {
   return (
     <>
-      <SectionTitle>Perfil tecnico</SectionTitle>
+      <SectionTitle>Perfil técnico</SectionTitle>
       <Select id="sp-ff-role" name="primaryRole" label="Rol principal" options={FF_ROLE} />
       <Select id="sp-ff-hand" name="throwingHand" label="Mano dominante (si lanza)" options={THROW_HAND} />
       <div className="space-y-2">
         <p className="text-sm font-medium text-white">Estilo de juego</p>
         <CB name="styleSpeed" label="Velocidad" />
-        <CB name="styleRoutes" label="Rutas / tecnica" />
-        <CB name="stylePhysical" label="Juego fisico" />
-        <CB name="styleVision" label="Vision de juego" />
+        <CB name="styleRoutes" label="Rutas / técnica" />
+        <CB name="stylePhysical" label="Juego físico" />
+        <CB name="styleVision" label="Visión de juego" />
       </div>
 
       <SectionTitle>Formato y experiencia</SectionTitle>
       <Select id="sp-ff-format" name="format" label="Modalidad principal" options={FF_FORMAT} />
-      <Input id="sp-ff-years" name="yearsExp" type="number" min={0} max={30} label="Anos de experiencia" placeholder="3" />
-      <TextArea name="teamsLeagues" label="Ligas y equipos" placeholder="Liga, equipo, temporada (uno por linea)..." />
-      <TextArea name="achievements" label="Logros y nivel" placeholder="Campeonatos, MVP, seleccion..." />
+      <Input id="sp-ff-years" name="yearsExp" type="number" min={0} max={30} label="Años de experiencia" placeholder="3" />
+      <TextArea name="teamsLeagues" label="Ligas y equipos" placeholder="Liga, equipo, temporada (uno por línea)..." />
+      <TextArea name="achievements" label="Logros y nivel" placeholder="Campeonatos, MVP, selección..." />
       <Input id="sp-ff-tackle" name="tackleExp" label="Exp. en tackle u otros deportes" placeholder="Americano, rugby, etc." />
 
       <SectionTitle>Habilidades — QB</SectionTitle>
@@ -355,9 +355,9 @@ function FlagFootballForm() {
         <CB name="qbShortPass" label="Pase corto" />
         <CB name="qbMediumPass" label="Pase medio" />
         <CB name="qbLongPass" label="Pase largo" />
-        <CB name="qbPrecision" label="Precision" />
+        <CB name="qbPrecision" label="Precisión" />
         <CB name="qbReadDefense" label="Lectura de defensa" />
-        <CB name="qbMechanics" label="Mecanica / velocidad de salida" />
+        <CB name="qbMechanics" label="Mecánica / velocidad de salida" />
         <CB name="qbMobility" label="Movilidad (scramble / throw on run)" />
       </div>
 
@@ -367,7 +367,7 @@ function FlagFootballForm() {
         <CB name="recHands" label="Manos (general)" />
         <CB name="recTrafficCatch" label="Atrapar en trafico" />
         <CB name="recOneHand" label="Atrapar con una mano" />
-        <CB name="recSeparation" label="Separacion / COD" />
+        <CB name="recSeparation" label="Separación / COD" />
         <CB name="recZoneReading" label="Lectura vs zona" />
       </div>
 
@@ -604,7 +604,7 @@ export default function StudentSpecializedPage() {
         </div>
         <CardTitle>Ficha deportiva especializada</CardTitle>
         <p className="text-sm text-white/70">
-          Detalla tu experiencia en un deporte especifico. Puedes agregar mas fichas desde tu perfil.
+          Detalla tu experiencia en un deporte específico. Puedes agregar más fichas desde tu perfil.
         </p>
       </CardHeader>
       <CardContent>

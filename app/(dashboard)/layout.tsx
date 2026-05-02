@@ -61,8 +61,8 @@ export default async function DashboardLayout({
       : [];
 
   const sportLabels: Record<string, string> = {
-    basketball: "Basquetbol",
-    soccer: "Futbol",
+    basketball: "Básquetbol",
+    soccer: "Fútbol",
     flag_football: "Flag Football",
     volleyball: "Voleibol",
   };
@@ -77,13 +77,13 @@ export default async function DashboardLayout({
         <Topbar userName={userName} />
         {user.role === "coach" && verifiedSports.length === 0 && (
           <div className="border-b border-yellow-500/30 bg-yellow-500/10 px-4 py-3 text-sm text-yellow-200 sm:px-6">
-            <span className="font-semibold">Verificacion pendiente.</span> Tu cuenta esta en revision por un administrador. Podras crear eventos y contactar alumnos una vez verificado en al menos un deporte.
+            <span className="font-semibold">Verificación pendiente.</span> Tu cuenta está en revisión por un administrador. Podrás crear eventos y contactar alumnos una vez verificado en al menos un deporte.
           </div>
         )}
         {user.role === "coach" && verifiedSports.length > 0 && pendingVerifications.length > 0 && (
           <div className="border-b border-blue-500/30 bg-blue-500/10 px-4 py-3 text-sm text-blue-200 sm:px-6">
             Verificado en: <span className="font-semibold">{verifiedSports.map((s) => sportLabels[s] ?? s).join(", ")}</span>.{" "}
-            Revision pendiente para: {pendingVerifications.map((v) => sportLabels[v.sport] ?? v.sport).join(", ")}.
+            Revisión pendiente para: {pendingVerifications.map((v) => sportLabels[v.sport] ?? v.sport).join(", ")}.
           </div>
         )}
         <main className="flex-1 p-4 text-white sm:p-6 [&_.rounded-2xl]:!border-white/10 [&_.rounded-2xl]:!bg-[#111114] [&_.rounded-2xl]:!ring-white/10 [&_a]:!text-white [&_h1]:!text-white [&_h2]:!text-white [&_h3]:!text-white [&_p]:!text-white [&_input]:!bg-white [&_input]:!text-[#1883FF] [&_select]:!bg-white">

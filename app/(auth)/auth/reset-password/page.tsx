@@ -27,7 +27,7 @@ function ResetPasswordForm() {
     const confirmPassword = String(fd.get("confirmPassword") ?? "");
 
     if (password !== confirmPassword) {
-      setError("Las contrasenas no coinciden.");
+      setError("Las contraseñas no coinciden.");
       return;
     }
 
@@ -43,7 +43,7 @@ function ResetPasswordForm() {
 
       if (!res.ok || !result.ok) {
         const fieldErrors = result.errors ? Object.values(result.errors).flat().join(" ") : "";
-        setError(fieldErrors || result.message || "No se pudo restablecer la contrasena.");
+        setError(fieldErrors || result.message || "No se pudo restablecer la contraseña.");
         return;
       }
 
@@ -61,8 +61,8 @@ function ResetPasswordForm() {
         <Input
           id="rp-token"
           name="token"
-          label="Token de recuperacion"
-          placeholder="Pega aqui el token recibido"
+          label="Token de recuperación"
+          placeholder="Pega aquí el token recibido"
           required
         />
       ) : (
@@ -72,20 +72,20 @@ function ResetPasswordForm() {
         id="rp-password"
         name="password"
         type="password"
-        label="Nueva contrasena"
-        placeholder="Min 8 caracteres, 1 mayuscula, 1 simbolo"
+        label="Nueva contraseña"
+        placeholder="Min 8 caracteres, 1 mayúscula, 1 símbolo"
         required
       />
       <Input
         id="rp-confirm"
         name="confirmPassword"
         type="password"
-        label="Confirmar nueva contrasena"
+        label="Confirmar nueva contraseña"
         placeholder="********"
         required
       />
       <p className="text-xs text-white/40">
-        La contrasena debe tener al menos 8 caracteres, una mayuscula y un simbolo.
+        La contraseña debe tener al menos 8 caracteres, una mayúscula y un símbolo.
       </p>
 
       {error ? (
@@ -95,7 +95,7 @@ function ResetPasswordForm() {
       ) : null}
 
       <Button type="submit" className="w-full" disabled={isSubmitting}>
-        {isSubmitting ? "Actualizando..." : "Restablecer contrasena"}
+        {isSubmitting ? "Actualizando..." : "Restablecer contraseña"}
       </Button>
     </form>
   );
@@ -112,14 +112,14 @@ export default function ResetPasswordPage() {
           <svg aria-hidden="true" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
-          Volver al inicio de sesion
+          Volver al inicio de sesión
         </Link>
       </div>
       <Card>
         <CardHeader>
-          <CardTitle>Restablecer contrasena</CardTitle>
+          <CardTitle>Restablecer contraseña</CardTitle>
           <p className="text-sm text-white/70">
-            Elige una nueva contrasena segura para tu cuenta.
+            Elige una nueva contraseña segura para tu cuenta.
           </p>
         </CardHeader>
         <CardContent>

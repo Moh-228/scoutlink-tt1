@@ -31,7 +31,7 @@ export async function PATCH(request: Request) {
 
 		if (!parsed.success) {
 			return Response.json(
-				{ ok: false, message: "Datos invalidos.", errors: parsed.error.flatten().fieldErrors },
+				{ ok: false, message: "Datos inválidos.", errors: parsed.error.flatten().fieldErrors },
 				{ status: 400 },
 			);
 		}

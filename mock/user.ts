@@ -14,6 +14,6 @@ export const mockUser: MockUser = {
   email: "moises.perez@correo.edu",
   role: "student",
   university: "ESCOM",
-  sport: "Basquetbol",
+  sport: "Básquetbol",
   city: "Monterrey",
 };

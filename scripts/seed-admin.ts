@@ -58,8 +58,8 @@ async function main() {
     console.log(`  ID:    ${admin.id}`);
     console.log(`  Email: ${admin.email}`);
     console.log(`  Rol:   ${admin.role}`);
-    console.log(`\nContrasena: ${PASSWORD}`);
-    console.log("Cambia la contrasena despues del primer inicio de sesion.");
+    console.log(`\nContraseña: ${PASSWORD}`);
+    console.log("Cambia la contraseña después del primer inicio de sesión.");
   } finally {
     await prisma.$disconnect();
     await pool.end();

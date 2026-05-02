@@ -2,14 +2,14 @@ import { z } from "zod";
 
 const passwordStrength = z
 	.string()
-	.min(8, "La contrasena debe tener al menos 8 caracteres.")
-	.max(72, "La contrasena no puede exceder 72 caracteres.")
-	.regex(/[A-Z]/, "La contrasena debe contener al menos una mayuscula.")
-	.regex(/[^a-zA-Z0-9]/, "La contrasena debe contener al menos un simbolo.");
+	.min(8, "La contraseña debe tener al menos 8 caracteres.")
+	.max(72, "La contraseña no puede exceder 72 caracteres.")
+	.regex(/[A-Z]/, "La contraseña debe contener al menos una mayúscula.")
+	.regex(/[^a-zA-Z0-9]/, "La contraseña debe contener al menos un símbolo.");
 
 export const registerSchema = z
 	.object({
-		email: z.string().email("Correo invalido.").trim().toLowerCase(),
+		email: z.string().email("Correo inválido.").trim().toLowerCase(),
 		password: passwordStrength,
 		role: z.enum(["student", "coach"]).default("student"),
 		fullName: z
@@ -29,15 +29,15 @@ export const registerSchema = z
 	});
 
 export const loginSchema = z.object({
-	email: z.string().email("Correo invalido.").trim().toLowerCase(),
+	email: z.string().email("Correo inválido.").trim().toLowerCase(),
 	password: z
 		.string()
-		.min(8, "La contrasena debe tener al menos 8 caracteres.")
-		.max(72, "La contrasena no puede exceder 72 caracteres."),
+		.min(8, "La contraseña debe tener al menos 8 caracteres.")
+		.max(72, "La contraseña no puede exceder 72 caracteres."),
 });
 
 export const forgotPasswordSchema = z.object({
-	email: z.string().email("Correo invalido.").trim().toLowerCase(),
+	email: z.string().email("Correo inválido.").trim().toLowerCase(),
 });
 
 export const resetPasswordSchema = z.object({
@@ -58,14 +58,14 @@ export const studentProfileSchema = z.object({
 	semester: z.coerce.number().int().min(1).max(12).optional().or(z.literal("")),
 	gender: genderEnum.optional(),
 	favoriteSport: sportEnum.optional(),
-	socialLink: z.string().url("Debe ser una URL valida.").optional().or(z.literal("")),
+	socialLink: z.string().url("Debe ser una URL válida.").optional().or(z.literal("")),
 });
 
 export const studentGeneralCardSchema = z.object({
 	heightCm: z.coerce.number().int().min(50).max(270).optional().or(z.literal("")),
 	weightKg: z.coerce.number().int().min(20).max(400).optional().or(z.literal("")),
 	phone: z.string().max(20).optional(),
-	publicEmail: z.string().email("Correo invalido.").optional().or(z.literal("")),
+	publicEmail: z.string().email("Correo inválido.").optional().or(z.literal("")),
 	experienceLevel: z.enum(["beginner", "intermediate", "advanced"]).optional(),
 	isPublic: z.boolean().default(false),
 	medicalInfo: z
@@ -104,7 +104,7 @@ export const coachDocumentsSchema = z.object({
 		.array(
 			z.object({
 				sport: sportEnum,
-				documentUrl: z.string().url("Debe ser una URL valida."),
+				documentUrl: z.string().url("Debe ser una URL válida."),
 			}),
 		)
 		.min(1),

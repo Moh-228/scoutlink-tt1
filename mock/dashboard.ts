@@ -21,18 +21,18 @@ export const landingHowItWorks = [
 
 export const landingSports = [
   {
-    name: "Futbol",
-    description: "Visorias y tryouts para equipos universitarios.",
-    level: "Categorias U17-U21",
+    name: "Fútbol",
+    description: "Visorías y tryouts para equipos universitarios.",
+    level: "Categorías U17-U21",
   },
   {
-    name: "Basquetbol",
-    description: "Eventos de scouting tecnico y fisico.",
+    name: "Básquetbol",
+    description: "Eventos de scouting técnico y físico.",
     level: "Nivel competitivo nacional",
   },
   {
     name: "Tocho bandera",
-    description: "Evaluacion de marcas y potencial de beca.",
+    description: "Evaluación de marcas y potencial de beca.",
     level: "Pruebas oficiales",
   },
   {

@@ -32,7 +32,7 @@ export default async function AdminPage() {
     <div className="space-y-6">
       <header>
         <h1 className="text-2xl font-bold">Panel de Administrador</h1>
-        <p className="text-slate-400">Metricas, verificaciones y moderacion.</p>
+        <p className="text-slate-400">Métricas, verificaciones y moderación.</p>
       </header>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -48,8 +48,8 @@ export default async function AdminPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Solicitudes de verificacion de entrenadores</CardTitle>
-          <CardDescription>Aprueba o rechaza la verificacion de coaches por deporte.</CardDescription>
+          <CardTitle>Solicitudes de verificación de entrenadores</CardTitle>
+          <CardDescription>Aprueba o rechaza la verificación de coaches por deporte.</CardDescription>
         </CardHeader>
         <CardContent>
           <VerificationsList verifications={verifications} />

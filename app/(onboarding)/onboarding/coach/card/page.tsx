@@ -84,7 +84,7 @@ export default function CoachCardPage() {
         </div>
         <CardTitle>Ficha de entrenador</CardTitle>
         <p className="text-sm text-white/70">
-          Comparte tu trayectoria y certificaciones. Puedes editarlas despues desde tu perfil.
+          Comparte tu trayectoria y certificaciones. Puedes editarlas después desde tu perfil.
         </p>
       </CardHeader>
       <CardContent>
@@ -92,7 +92,7 @@ export default function CoachCardPage() {
 
           {/* Categorías */}
           <div>
-            <p className="mb-2 text-sm font-medium text-white">Categorias que entrenas</p>
+            <p className="mb-2 text-sm font-medium text-white">Categorías que entrenas</p>
             <div className="flex gap-3">
               {GENDERS.map((gender) => (
                 <button
@@ -120,7 +120,7 @@ export default function CoachCardPage() {
             type="number"
             min={0}
             max={60}
-            label="Anos de experiencia como entrenador"
+            label="Años de experiencia como entrenador"
             placeholder="5"
           />
 
@@ -130,7 +130,7 @@ export default function CoachCardPage() {
             <textarea
               name="certifications"
               rows={3}
-              placeholder="Certificacion FIBA, UEFA, CONADE..."
+              placeholder="Certificación FIBA, UEFA, CONADE..."
               className={TA_CLASS}
             />
           </label>
