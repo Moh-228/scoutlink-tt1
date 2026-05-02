@@ -23,10 +23,17 @@ export async function POST(request: Request) {
 			select: { id: true, email: true, role: true, isActive: true, passwordHash: true, onboardingCompleted: true },
 		});
 
-		if (!user || !user.isActive) {
+		if (!user) {
 			return Response.json(
 				{ ok: false, message: "Correo o contraseña incorrectos." },
 				{ status: 401 },
+			);
+		}
+
+		if (!user.isActive) {
+			return Response.json(
+				{ ok: false, message: "Tu cuenta ha sido desactivada." },
+				{ status: 403 },
 			);
 		}
 
