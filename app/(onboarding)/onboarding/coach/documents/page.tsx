@@ -76,7 +76,7 @@ function CoachDocumentsForm() {
             id={`doc-${sport}`}
             name={`doc_${sport}`}
             type="url"
-            label="Enlace al documento que te avala"
+            label="Enlace al documento que te certifica"
             placeholder="https://drive.google.com/..."
             required
           />
@@ -107,7 +107,7 @@ export default function CoachDocumentsPage() {
         <div className="mb-1 text-xs font-semibold uppercase tracking-widest text-white/40">
           Paso 2 de 3
         </div>
-        <CardTitle>Documentos de aval</CardTitle>
+        <CardTitle>Documentos de certificación</CardTitle>
         <p className="text-sm text-white/70">
           Sube un documento por deporte que acredite tu rol como entrenador. Un administrador los revisará para verificarte.
         </p>

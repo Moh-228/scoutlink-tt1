@@ -20,10 +20,55 @@ const HOW_IT_WORKS = [
 ];
 
 const SPORTS = [
-  { name: "Fútbol", description: "Visorías y tryouts." },
-  { name: "Básquetbol", description: "Eventos de scouting técnico y físico." },
-  { name: "Tocho bandera", description: "Visorías y tryouts." },
-  { name: "Voleibol", description: "Eventos de scouting técnico y físico." },
+  {
+    name: "Fútbol",
+    description:
+      "Deporte de equipo en el que dos conjuntos de 11 jugadores compiten por introducir un balón en la portería rival usando los pies. Combina resistencia, técnica y trabajo colectivo.",
+  },
+  {
+    name: "Básquetbol",
+    description:
+      "Deporte de equipo donde cinco jugadores por lado intentan anotar encestando un balón en el aro contrario. Requiere velocidad, coordinación y visión de juego.",
+  },
+  {
+    name: "Tocho bandera",
+    description:
+      "Variante del fútbol americano sin contacto físico directo, donde se detiene al portador del balón arrancándole una bandera en la cadera. Desarrolla agilidad, estrategia y trabajo en equipo.",
+  },
+  {
+    name: "Voleibol",
+    description:
+      "Deporte de red en el que dos equipos de seis jugadores se alternan para golpear un balón y que caiga en el campo contrario. Exige coordinación, salto y comunicación entre compañeros.",
+  },
+];
+
+const REQUIREMENTS = [
+  {
+    role: "Deportista",
+    items: [
+      {
+        label: "Comprobante de inscripción",
+        description: "Documento oficial que acredita que estás inscrito en la institución.",
+        link: null,
+      },
+      {
+        label: "Seguro médico",
+        description: "Constancia de seguro médico activo. No es obligatorio para registrarse, pero es necesario para acceder a todas las funcionalidades de la aplicación.",
+        link: "https://drive.google.com",
+      },
+    ],
+  },
+  {
+    role: "Entrenador",
+    items: [
+      {
+        label: "Documento de responsable del deporte",
+        description:
+          "Documento que acredita tu designación como responsable técnico del deporte en la institución.",
+        link: "https://drive.google.com",
+      },
+    ],
+  },
 ];
 
 export default function Home() {
@@ -32,7 +77,7 @@ export default function Home() {
       <section className="rounded-3xl bg-[#18181b] p-8 shadow-sm ring-1 ring-slate-200 sm:p-12">
         <p className="text-xl font-bold uppercase tracking-[0.3em] text-[#1883FF]">Scoutlink</p>
         <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl">
-          Conecta talento estudiantil con oportunidades reales de reclutamiento universitario.
+          Conecta talento estudiantil con oportunidades de reclutamiento universitario.
         </h1>
         <p className="mt-5 max-w-2xl text-lg text-white">
           Un espacio para que estudiantes deportistas muestren su perfil, postulen a eventos y reciban seguimiento de entrenadores.
@@ -70,6 +115,40 @@ export default function Home() {
                 <CardTitle>{sport.name}</CardTitle>
                 <CardDescription>{sport.description}</CardDescription>
               </CardHeader>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-semibold tracking-tight text-white">Qué necesitas</h2>
+        <p className="mt-2 text-slate-400">
+          Dependiendo de tu rol, deberás contar con la siguiente documentación al momento de registrarte. Dicha documentacion debera accederse mediante un enlace externo, por ejemplo, utilizando Google Drive.
+        </p>
+        <div className="mt-5 grid gap-6 md:grid-cols-2">
+          {REQUIREMENTS.map((group) => (
+            <Card key={group.role}>
+              <CardHeader>
+                <CardTitle>{group.role}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col gap-4">
+                {group.items.map((item) => (
+                  <div key={item.label} className="flex flex-col gap-1">
+                    <p className="font-medium text-white">{item.label}</p>
+                    <p className="text-sm text-slate-400">{item.description}</p>
+                    {item.link && (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1 inline-flex items-center gap-1 text-sm text-[#1883FF] underline underline-offset-2 hover:text-blue-400"
+                      >
+                        Por ejemplo, utiliza Google Drive
+                      </a>
+                    )}
+                  </div>
+                ))}
+              </CardContent>
             </Card>
           ))}
         </div>

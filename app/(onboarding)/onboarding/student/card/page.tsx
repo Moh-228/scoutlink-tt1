@@ -201,14 +201,14 @@ export default function StudentCardPage() {
           <Input
             id="ob-inscription"
             name="inscriptionProof"
-            label="Comprobante de inscripcion (URL o folio)"
-            placeholder="https://... o numero de folio"
+            label="Comprobante de inscripcion en URL"
+            placeholder="https://drive.google.com/file/..."
           />
           <Input
             id="ob-insurance"
             name="medicalInsurance"
-            label="Seguro medico (URL o numero de poliza)"
-            placeholder="https://... o numero de poliza"
+            label="Seguro medico en URL"
+            placeholder="https://drive.google.com/file/..."
           />
 
           {/* Visibilidad */}

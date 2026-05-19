@@ -64,7 +64,7 @@ export function VerificationsList({ verifications }: { verifications: Verificati
                 rel="noopener noreferrer"
                 className="text-xs text-cyan-400 underline hover:text-cyan-300"
               >
-                Ver documento aval
+                Ver documento certificado
               </a>
             )}
             {v.rejectionReason && (
